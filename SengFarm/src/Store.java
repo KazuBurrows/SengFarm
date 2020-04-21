@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import Item.Fertilizer;
+import Item.Item;
 
 public class Store {
 
@@ -45,15 +46,43 @@ public class Store {
 	}
 	
 	
+	// Maybe, just create an interface type to return instead of Item. Otherwise I only return item and not sub-class.
+	// Unless I find another way, like successful purchase, and unsuccessful purchase. Then some validation.
 	
 	/*
 	 * Verify input, then reduces the quantity of an item in the inventory by one.
 	 */
-	public void purchaseItem(int itemIndex)
+	public Item purchaseItem(int itemIndex)
 	{
 		//need to check quantity of item
 		// then reduce quantity of item to one less.
+		Item item = null;
 		
+		switch (itemIndex) { 
+        case 0:
+            item = new Fertilizer();
+        	
+            break;
+        case 1:
+            
+            break;
+        case 2:
+            
+            break;
+        case 3:
+            
+            break;
+        case 4:
+            
+            break;
+        case 5:
+            
+            break;
+        }
+		
+		
+		
+		return item;
 	}
 	
 	
@@ -80,9 +109,12 @@ public class Store {
 //	public static void main(String[] args) {
 //		
 ////		System.out.println((Math.random()*10));
-//		Store s = new Store();
+////		Store s = new Store();
 //		
-//		s.getItems();
+////		s.getItems();
+//		
+//		Item t = new Fertilizer();
+//		t.testMethod();
 //		
 //	}
 	
