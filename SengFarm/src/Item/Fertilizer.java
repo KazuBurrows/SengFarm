@@ -8,6 +8,12 @@ public class Fertilizer extends Item {
 	}
 	
 	
+//	public void testMethod() {
+//		
+//		System.out.println("testing 123");
+//		
+//	}
+	
 	
 	@Override
 	public void applyItemBonus() {

@@ -1,5 +1,10 @@
+import Item.AnimalToy;
+import Item.ExtraAction;
+import Item.FavouriteFood;
 import Item.Fertilizer;
-import Item.Item;
+import Item.Food;
+import Item.Listable;
+import Item.StoreCoupon;
 
 public class Store {
 
@@ -17,6 +22,9 @@ public class Store {
 	
 	
 	
+	/*
+	 * Constructor. Populates the inventory on initialization.
+	 */
 	public Store()
 	{
 		
@@ -46,43 +54,49 @@ public class Store {
 	}
 	
 	
+	
 	// Maybe, just create an interface type to return instead of Item. Otherwise I only return item and not sub-class.
 	// Unless I find another way, like successful purchase, and unsuccessful purchase. Then some validation.
 	
 	/*
 	 * Verify input, then reduces the quantity of an item in the inventory by one.
 	 */
-	public Item purchaseItem(int itemIndex)
+	public Listable purchaseItem(int itemIndex)
 	{
 		//need to check quantity of item
 		// then reduce quantity of item to one less.
-		Item item = null;
+		
+		//Give options when item is selected, e.g get item description, or cancel purchase.
 		
 		switch (itemIndex) { 
         case 0:
-            item = new Fertilizer();
+            Fertilizer fertilizer = new Fertilizer();
+            return fertilizer;
         	
-            break;
         case 1:
+        	Food food = new Food();
+            return food;
             
-            break;
         case 2:
+        	FavouriteFood fav_food = new FavouriteFood();
+            return fav_food;
             
-            break;
         case 3:
+        	AnimalToy toy = new AnimalToy();
+            return toy;
             
-            break;
         case 4:
+        	StoreCoupon coupon = new StoreCoupon();
+            return coupon;
             
-            break;
         case 5:
+        	ExtraAction extra_action = new ExtraAction();
+            return extra_action;
             
-            break;
         }
 		
 		
-		
-		return item;
+		return null;
 	}
 	
 	
@@ -113,11 +127,11 @@ public class Store {
 //		
 ////		s.getItems();
 //		
-//		Item t = new Fertilizer();
+//		Fertilizer t = new Fertilizer();
 //		t.testMethod();
 //		
 //	}
-	
+//	
 	
 	
 }

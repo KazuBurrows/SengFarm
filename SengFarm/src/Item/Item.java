@@ -1,6 +1,6 @@
 package Item;
 
-public class Item extends ItemBonus {
+public class Item extends ItemBonus implements Listable {
 	
 	private String name;
 	private int price;
