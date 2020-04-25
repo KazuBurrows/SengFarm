@@ -8,7 +8,7 @@ public class Event {
 	
 	
 	/*
-	 * Calls random events that have a static probability of occurring
+	 * Calls random events that have a static probability of occurring  -  Rewrite this comment
 	 */
 	public void checkForEvent()
 	{
@@ -26,7 +26,7 @@ public class Event {
 		boolean isDrought = Math.random() < DROUGHT_PROBABILITY;
 		
 		if (isDrought) {
-			//do something
+			// Farm loses half of its growing crops. The exact number is determined randomly.
 			
 		}
 		
@@ -40,7 +40,8 @@ public class Event {
 		boolean isBrokenFence = Math.random() < BROKEN_FENCE_PROBABILITY;
 		
 		if (isBrokenFence) {
-			//do something
+			// Farm loses one or more animals. The exact number is determined randomly.
+			// Animals on Farm lose happiness
 			
 		}
 		
@@ -53,7 +54,7 @@ public class Event {
 		boolean wonCountyFair = Math.random() < COUNTY_FAIR_PROBABILITY;
 		
 		if (wonCountyFair) {
-			//do something
+			// Farm gains money. The amount of money is scaled by the number of growing crops and animals on the farm.
 			
 		}
 		

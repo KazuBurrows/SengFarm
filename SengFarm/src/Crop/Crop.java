@@ -8,6 +8,10 @@ public class Crop {
 	private int growthRate;
 	
 	
+	
+	/*
+	 * Constructor
+	 */
 	public Crop(String cropName, int cropPrice, int cropHarvestDay, int cropGrowthRate)
 	{
 		name = cropName;
@@ -19,6 +23,11 @@ public class Crop {
 	
 	
 	
+	/*
+	 * Get the name of crop
+	 * 
+	 * @return		Name of crop
+	 */
 	public String getName()
 	{
 		

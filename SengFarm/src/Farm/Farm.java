@@ -1,5 +1,10 @@
 package Farm;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import Crop.Crop;
+import Item.Item;
+import Item.Listable;
 
 public class Farm extends FarmBonus {
 	
@@ -7,12 +12,10 @@ public class Farm extends FarmBonus {
 	private Farmer farmer;
 	private int money;
 	
-	private ArrayList<Animal> animals = new ArrayList<Animal>();
-	private ArrayList<Crop> crops = new ArrayList<Crop>();
-	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<Animal> animals = new ArrayList<Animal>();				// Animals on farm
+	private ArrayList<Crop> crops = new ArrayList<Crop>();						// Growing crops on farm
+	private ArrayList<Listable> items = new ArrayList<Listable>();				// 
 	
-//	do I want a list of crops I have and list of crops I have planted
-//	If crops are planted is there a max limit on how many there is planted.
 	
 	
 	/*
@@ -37,6 +40,34 @@ public class Farm extends FarmBonus {
 	 */
 	public void getStatus()
 	{
+//		String cropMessage = "Crop status./n  {}: x{}, Harvest in {} days.";
+		String cropMessage = "{}: Harvest in {} days.";
+		
+		Crop crop;
+		System.out.println("Crop Status");
+		
+		Iterator<Crop> cropIter = crops.iterator();
+		while (cropIter.hasNext()) {
+			crop = cropIter.next();
+			
+			System.out.println(String.format(cropMessage, crop.getName(), crop.getHarvestDay()));
+				
+        }
+		
+		
+		
+		String animalMessage = "{}: Happiness at {}.";
+		
+		Animal animal;
+		System.out.println("Animal Status");
+		
+		Iterator<Animal> animalIter = animals.iterator();
+		while (animalIter.hasNext()) {
+			animal = animalIter.next();
+			
+			System.out.println(String.format(animalMessage, animal.getName(), animal.getHappy()));
+				
+        }
 		
 		
 	}
@@ -51,7 +82,7 @@ public class Farm extends FarmBonus {
 	public String getName()
 	{
 		
-		
+		return name;
 	}
 	
 	
@@ -64,7 +95,7 @@ public class Farm extends FarmBonus {
 	public int getMoney()
 	{
 		
-		
+		return money;
 	}
 	
 	
@@ -74,7 +105,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void addMoney(int amount)
 	{
-		
+		money += amount;
 		
 	}
 	
@@ -85,7 +116,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void subtractMoney(int amount)
 	{
-		
+		money -= amount;
 		
 	}
 	
@@ -99,7 +130,7 @@ public class Farm extends FarmBonus {
 	public int getNumAnimals()
 	{
 		
-		
+		return animals.size();
 	}
 	
 	
@@ -111,8 +142,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void addAnimal(Animal animal)
 	{
-		
-		
+		animals.add(animal);
 		
 	}
 	
@@ -125,7 +155,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void removeAnimal(Animal animal)
 	{
-		
+		animals.remove(animal);
 		
 	}
 	
@@ -150,6 +180,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void addCrop(Crop crop)
 	{
+		crops.add(crop);
 		
 	}
 	
@@ -162,8 +193,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void removeCrop(Crop crop)
 	{
-		
-		
+		crops.remove(crop);
 		
 	}
 	
@@ -188,6 +218,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void addItem(Item item)
 	{
+		
 		
 	}
 	
