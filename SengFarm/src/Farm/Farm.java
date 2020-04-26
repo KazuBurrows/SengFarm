@@ -14,7 +14,7 @@ public class Farm extends FarmBonus {
 	
 	private ArrayList<Animal> animals = new ArrayList<Animal>();				// Animals on farm
 	private ArrayList<Crop> crops = new ArrayList<Crop>();						// Growing crops on farm
-	private ArrayList<Listable> items = new ArrayList<Listable>();				// 
+	private ArrayList<Item> items = new ArrayList<Item>();				// 
 	
 	
 	
