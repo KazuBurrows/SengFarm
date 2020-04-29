@@ -14,7 +14,7 @@ public class Farm extends FarmBonus {
 	
 	private ArrayList<Animal> animals = new ArrayList<Animal>();				// Animals on farm
 	private ArrayList<Crop> crops = new ArrayList<Crop>();						// Growing crops on farm
-	private ArrayList<Item> items = new ArrayList<Item>();				// 
+	private ArrayList<Item> items = new ArrayList<Item>();						// All items owned
 	
 	
 	
@@ -218,7 +218,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void addItem(Item item)
 	{
-		
+		items.add(item);
 		
 	}
 	
@@ -231,8 +231,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void removeItem(Item item)
 	{
-		
-		
+		items.remove(item);
 		
 	}
 
