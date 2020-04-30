@@ -1,6 +1,8 @@
 package Item;
 
-public class Item extends ItemBonus implements Listable {
+import Farm.Farm;
+
+public class Item extends ItemBonus {
 	
 	private String name;
 	private int price;
@@ -64,14 +66,14 @@ public class Item extends ItemBonus implements Listable {
 	
 	
 	
-	/*
-	 * Only for sub-classes to override
-	 */
-	@Override
-	public void applyItemBonus() {
-		// TODO Auto-generated method stub
-		
-	}
+//	/*
+//	 * Only for sub-classes to override
+//	 */
+//	@Override
+//	public void useItem(Farm farm) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 	
 	
 	

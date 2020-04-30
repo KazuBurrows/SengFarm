@@ -11,7 +11,9 @@ import java.util.Scanner;
 
 
 
-
+/*
+ * Constructor
+ */
 public class Farmer {
 	
 	private String name;
@@ -86,7 +88,7 @@ public class Farmer {
 	 */
 	private void setAge()
 	{
-		String scannerMsg = "Enter your farmer's name";
+		String scannerMsg = "Enter your farmer's age.";
 		String inputAge;
 		String verifiedInput;
 		
@@ -159,6 +161,7 @@ public class Farmer {
 			
 			
 			int inputSize = userInput.length();
+			
 			if (inputSize < 3 || inputSize > 15) {	// Checks for name length.
 				
 				return "null";
@@ -188,11 +191,11 @@ public class Farmer {
 	
 	
 	
-	public static void main(String[] args) {
-		
-		Farmer f = new Farmer();
-		f.getName();
-	}
+//	public static void main(String[] args) {
+//		
+//		Farmer f = new Farmer();
+//		f.getName();
+//	}
 }
 
 

@@ -1,5 +1,7 @@
 package Item;
 
+import Farm.Farm;
+
 public class Food extends Item {
 
 	public Food() {
@@ -8,8 +10,9 @@ public class Food extends Item {
 	}
 	
 	@Override
-	public void applyItemBonus() {
+	public void useItem(Farm farm) {
 		// Do something
+		System.out.println("This is food.");
 		
 	}
 

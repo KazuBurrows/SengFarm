@@ -1,3 +1,4 @@
+package Main;
 import Item.AnimalToy;
 import Item.ExtraAction;
 import Item.FavouriteFood;

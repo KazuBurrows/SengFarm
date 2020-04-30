@@ -1,5 +1,7 @@
 package Item;
 
+import Farm.Farm;
+
 public abstract class ItemBonus {
 	
 	private String itemBonus;
@@ -34,7 +36,7 @@ public abstract class ItemBonus {
 	/*
 	 * Apply a special attribute when item is used
 	 */
-	public abstract void applyItemBonus();
+	public abstract void useItem(Farm farm);
 	
 	
 }

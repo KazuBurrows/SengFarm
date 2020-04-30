@@ -1,10 +1,12 @@
 package Farm;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
+import Crop.Apple;
+import Crop.Corn;
 import Crop.Crop;
 import Item.Item;
-import Item.Listable;
 
 public class Farm extends FarmBonus {
 	
@@ -12,7 +14,7 @@ public class Farm extends FarmBonus {
 	private Farmer farmer;
 	private int money;
 	
-	private ArrayList<Animal> animals = new ArrayList<Animal>();				// Animals on farm
+//	private ArrayList<Animal> animals = new ArrayList<Animal>();				// Animals on farm
 	private ArrayList<Crop> crops = new ArrayList<Crop>();						// Growing crops on farm
 	private ArrayList<Item> items = new ArrayList<Item>();						// All items owned
 	
@@ -21,15 +23,14 @@ public class Farm extends FarmBonus {
 	/*
 	 * Constructor
 	 * 
-	 * @param farmName				Name of farm
 	 * @param farmerCharacter		Farmer object
 	 * @param initialMoney			Initial money for farm
 	 */
-	public Farm(String farmName, Farmer farmerCharacter, int initialMoney)
+	public Farm(Farmer farmerCharacter)
 	{
-		name = farmName;
+		setName();
 		farmer = farmerCharacter;
-		money = initialMoney;
+		setMoney();
 		
 	}
 	
@@ -87,6 +88,25 @@ public class Farm extends FarmBonus {
 	
 	
 	
+	
+	private void setName()
+	{
+		String scannerMsg = "Enter your farmer's name";
+		String inputName;
+		
+ 		while (true) {
+ 			inputName = userInputHelper(scannerMsg);
+ 			break;
+ 			
+ 		}
+		
+ 		
+ 		name = inputName;
+		
+	}
+	
+	
+	
 	/*
 	 * Get total amount of money the farm has
 	 * 
@@ -98,6 +118,13 @@ public class Farm extends FarmBonus {
 		return money;
 	}
 	
+	
+	
+	private void setMoney()
+	{
+		
+		money = 1000;
+	}
 	
 	
 	/*
@@ -164,10 +191,66 @@ public class Farm extends FarmBonus {
 	/*
 	 * Get the quantity and type of crops are on the farm
 	 */
-	public void getCrops()
+	public void printCrops()
 	{
 		
 		
+		
+	}
+	
+	
+	
+	/*
+	 * Get a crop object selected by player
+	 * 
+	 * @return			Crop selected by the player
+	 */
+	public Crop getCrop()
+	{
+		
+		// print select options
+		
+		// get input
+		
+		// verify
+		
+		// get crop
+		
+		// return crop
+		
+		
+		
+		String msg = "%s: %s harvest day %s.";
+		
+		Crop crop = null;
+		
+		for (int i = 0; i < crops.size(); i++)
+		{
+			crop = crops.get(i);
+			
+			
+			System.out.println(String.format(msg, i, crop.getName(), crop.getHarvestDay()));
+			
+			
+		}
+		
+		
+		String scannerMsg = "Enter number.";
+		int userInput = 0;
+
+		
+ 		while (true) {
+ 			userInput = Integer.parseInt(userInputHelper(scannerMsg));
+ 	 		break;
+ 			
+ 		}
+		
+		
+ 		
+ 		
+		
+		
+		return crops.get(userInput);
 		
 	}
 	
@@ -202,9 +285,31 @@ public class Farm extends FarmBonus {
 	/*
 	 * Get the quantity and type of items are in the farm's inventory
 	 */
-	public void getItems()
+	public void printItems()
 	{
 		
+		// print select options
+		
+		// get input
+		
+		// verify
+		
+		// get crop
+		
+		// return crop
+		
+		
+	}
+	
+	
+	
+	/*
+	 * Get a item object selected by player
+	 * 
+	 * @return			Item selected by the player
+	 */
+	public Item getItem()
+	{
 		
 		
 	}
@@ -241,6 +346,53 @@ public class Farm extends FarmBonus {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	
+	
+	
+	/*
+	 * Reads user input.
+	 * 
+	 * @param scannerMsg		A message to ask the user.
+	 * @return 					User's input.
+	 */
+	private static String userInputHelper(String scannerMsg)
+	{
+		
+		String userInput; 
+ 		System.out.println(scannerMsg);
+		
+		Scanner sc = new Scanner(System.in);
+ 		userInput = sc.nextLine();
+		
+// 		sc.close();
+ 		
+ 		return userInput;
+		
+	}
+	
+	
+	
+	
+	
+	public static void main(String[] args)
+	{
+		
+		Farmer fer = new Farmer();
+		Farm f = new Farm("Test", fer, 0);
+		
+		Apple a = new Apple();
+		Corn c = new Corn();
+		
+		f.addCrop(a);
+		f.addCrop(c);
+		
+		f.getCrop();
+		
+	}
+	
+	
 	
 	
 	

@@ -1,40 +1,33 @@
 package Item;
 
-public class Fertilizer extends Item {
+import Crop.Crop;
+import Farm.Farm;
 
+public class Fertilizer extends Item {
+	
+	/*
+	 * Constructor
+	 */
 	public Fertilizer() {
 		super("Fertilizer", 0, "Some description", "Something");
 		
 	}
 	
 	
-//	public void testMethod() {
-//		
-//		System.out.println("testing 123");
-//		
-//	}
 	
 	
 	@Override
-	public void applyItemBonus() {
-		// Do something
+	public void useItem(Farm farm) {
+		
+		// Prompt user to select item
+		Crop crop = farm.getCrop();
+		
+		int reduceBy = 2;
+		crop.reduceHarvestDay(reduceBy);
 		
 	}
 	
 	
-	
-//	public static void main(String[] args) {
-//		
-//		Fertilizer f = new Fertilizer("test name", 41, "test bonus name");
-//		
-//		System.out.println(f.getName());
-//		System.out.println(f.getPrice());
-//		
-//		System.out.println(f.getItemBonusName());
-//		
-////		f.applyItemBonus();
-//		
-//	}
 	
 	
 }

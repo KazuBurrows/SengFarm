@@ -1,5 +1,7 @@
 package Item;
 
+import Farm.Farm;
+
 public class StoreCoupon extends Item {
 
 	public StoreCoupon() {
@@ -8,7 +10,7 @@ public class StoreCoupon extends Item {
 	}
 	
 	@Override
-	public void applyItemBonus() {
+	public void useItem(Farm farm) {
 		// Do something
 		
 	}

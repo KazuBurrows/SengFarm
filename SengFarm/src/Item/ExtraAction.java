@@ -1,5 +1,8 @@
 package Item;
 
+import Farm.Farm;
+import Main.Game;
+
 public class ExtraAction extends Item {
 
 	public ExtraAction() {		
@@ -7,9 +10,13 @@ public class ExtraAction extends Item {
 		
 	}
 	
-	@Override
-	public void applyItemBonus() {
+	
+	
+	public void useItem(Game game) {
 		// Do something
+		
+		game.addAction();
+		
 		
 	}
 
