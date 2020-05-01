@@ -53,6 +53,7 @@ public class Farmer {
 		String inputName;
 		String verifiedInput;
 		
+		
  		while (true) {
  			inputName = userInputHelper(scannerMsg);
  			verifiedInput = verifyUserInput(inputName, "name");

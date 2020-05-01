@@ -8,9 +8,15 @@ import Farm.Farmer;
 public class Game {
 	
 	private int gameDuration;						// The total duration of game
-	private int currentDay;							// 
+	private int currentDay = 0;							// 
 	
-	private int totalActions;						// Total actions player has available
+	private int totalActions = 2;						// Total actions player has available
+	
+	
+	Farmer farmer;
+	Farm farm;
+	Store store;
+	Event event;
 	
 	
 	/*
@@ -19,19 +25,19 @@ public class Game {
 	public Game()
 	{
 		gameDuration = setGameDuration();
-		currentDay = 0;
 		
-		totalActions = 2;
+		farmer = new Farmer();
+		farm = new Farm(farmer);
+		store = new Store();
+		event = new Event();
 		
-		
-		main();
-		
+		runGame();
 	}
 	
 	
 	
 	/*
-	 * 
+	 * Get gameDuration
 	 * 
 	 * @return			The total duration of game
 	 */
@@ -45,7 +51,7 @@ public class Game {
 	
 	private int setGameDuration()
 	{
-		String scannerMsg = "Enter your farmer's name";
+		String scannerMsg = "Enter your desired game duration(days).";
 		String days;
 		
  		while (true) {
@@ -152,6 +158,103 @@ public class Game {
 	}
 	
 	
+
+	
+	
+	private void mainMenu()
+	{
+		String actionType = "main menu";
+		
+		String checkStatus = "%s: Check farm status.";
+		String tendFarm = "%s: Tend to Farm.";
+		String tendCrop = "%s: Tend to crops.";
+		String tendAnimal = "%s: Tend to animals.";
+		String browseStore = "%s: Browse the store.";
+		String endDay = "%s: Go to next day.";
+		
+		String[] userOptions = {checkStatus, tendFarm, tendCrop, tendAnimal, browseStore, endDay};
+		String option;
+		
+		for (int i = 0; i < userOptions.length; i++) {
+			option = userOptions[i];
+			
+			System.out.println(String.format(option, i));
+		}
+		
+		
+		
+		String scannerMsg = "Enter number to select an action.";
+		String inputOption;
+		
+ 		while (true) {
+ 			inputOption = userInputHelper(scannerMsg);
+ 			break;
+ 			
+ 		}
+ 		
+ 		
+ 		handleAction(actionType, Integer.parseInt(inputOption));
+//		return Integer.parseInt(inputOption);
+		
+	}
+	
+	
+	
+	private void handleAction(String actionType, int option)
+	{
+		
+		if (actionType == "main menu") {
+			
+			switch (option) {
+			
+			case 0:
+				// Get status options
+					// Game status
+					// Farm status
+				break;
+				
+			case 1:
+				// Tend to farm
+				break;
+				
+			case 2:
+				// List crops to tend to
+					// User selects crop
+					// Water crop
+					// or
+					// Use item on crop
+					// or
+					// harvest crop
+				break;
+				
+			case 3:
+				// List animals to tend to
+					// User selects animal
+					// Feed
+					// or
+					// Play
+				break;
+				
+			case 4:
+				// Browse store
+					// Print what's for sale with quantity and price
+				break;
+				
+			case 5:
+				// Precede to next day
+				break;
+				
+			}
+			
+			
+		}
+		
+
+	}
+	
+	
+	
+	
 	
 
 	/*
@@ -159,17 +262,13 @@ public class Game {
 	 */
 	private void runGame()
 	{
-		Farmer farmer = new Farmer();
-		Farm farm = new Farm(farmer);
-		Store store = new Store();
-		Event event = new Event();
-		
 		
 		while (currentDay < gameDuration)
 		{
-			event.checkForEvent();
+			// check event
+			// reset action
 			
-			// Give user options
+			mainMenu();
 			
 			
 			
@@ -182,7 +281,7 @@ public class Game {
 	public static void main(String[] args)
 	{
 		Game game = new Game();
-		game.runGame();
+//		game.runGame();
 		
 	}
 

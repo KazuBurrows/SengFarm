@@ -91,7 +91,7 @@ public class Farm extends FarmBonus {
 	
 	private void setName()
 	{
-		String scannerMsg = "Enter your farmer's name";
+		String scannerMsg = "Enter your farm's name";
 		String inputName;
 		
  		while (true) {
