@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import Farm.Farm;
 import Farm.Farmer;
+import InputHandler.InputHandler;
 
 public class Game {
 	
@@ -24,7 +25,7 @@ public class Game {
 	 */
 	public Game()
 	{
-		gameDuration = setGameDuration();
+		setGameDuration();
 		
 		farmer = new Farmer();
 		farm = new Farm(farmer);
@@ -49,21 +50,20 @@ public class Game {
 	
 	
 	
-	private int setGameDuration()
+	/*
+	 * Set game duration
+	 */
+	private void setGameDuration()
 	{
-		String scannerMsg = "Enter your desired game duration(days).";
-		String days;
-		
- 		while (true) {
- 			days = userInputHelper(scannerMsg);
- 			break;
- 			
- 		}
-		
+ 		String mode = "game duration";
+ 		String message = "Enter your desired game duration(days).";
  		
- 		return Integer.parseInt(days);
+		String days = InputHandler.getUserInput(mode, message);
 		
+ 		gameDuration = Integer.parseInt(days);
 	}
+	
+	
 	
 	
 	/*
@@ -79,11 +79,18 @@ public class Game {
 	
 	
 	
+	/*
+	 * Proceed to the next day
+	 */
 	private void nextDay()
 	{
 		currentDay++;
+		resetActions();
+		
+//		Event.checkForEvent();
 		
 	}
+	
 	
 	
 	/*
@@ -91,7 +98,7 @@ public class Game {
 	 * 
 	 * @return			Total actions player has available
 	 */
-	private int totalActions()
+	private int getTotalActions()
 	{
 		
 		return totalActions;
@@ -100,9 +107,21 @@ public class Game {
 	
 	
 	/*
+	 * Reset total actions to 2 actions
+	 */
+	private void resetActions()
+	{
+		totalActions = 2;
+		
+	}
+	
+	
+	
+	
+	/*
 	 * Add an extra action to total actions player has available
 	 */
-	public void addAction()
+	private void addAction()
 	{
 		totalActions += 1;
 		
@@ -119,18 +138,6 @@ public class Game {
 		
 	}
 	
-	
-	
-	/*
-	 * Verify user input
-	 * 
-	 * @return			Code
-	 */
-	private int verifyUserInput()
-	{
-		
-		
-	}
 	
 	
 	
@@ -191,6 +198,14 @@ public class Game {
  			break;
  			
  		}
+ 		
+ 		
+ 		String mode = "main menu";
+ 		String message = "Enter number to select an action.";
+ 		
+		String selectedOption = InputHandler.getUserInput(mode, message);
+		
+ 		
  		
  		
  		handleAction(actionType, Integer.parseInt(inputOption));
@@ -265,8 +280,6 @@ public class Game {
 		
 		while (currentDay < gameDuration)
 		{
-			// check event
-			// reset action
 			
 			mainMenu();
 			

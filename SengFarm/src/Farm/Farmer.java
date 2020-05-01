@@ -1,6 +1,8 @@
 package Farm;
 import java.util.Scanner;
 
+import InputHandler.InputHandler;
+
 ///**
 // * Explanation of method functionality.
 // *
@@ -49,25 +51,12 @@ public class Farmer {
 	 */
 	private void setName()
 	{
-		String scannerMsg = "Enter your farmer's name";
-		String inputName;
-		String verifiedInput;
+ 		String mode = "farmer name";
+ 		String message = "Enter your farmer's name.";
+ 		
+		String farmerName = InputHandler.getUserInput(mode, message);
 		
-		
- 		while (true) {
- 			inputName = userInputHelper(scannerMsg);
- 			verifiedInput = verifyUserInput(inputName, "name");
- 	 		
- 			if (verifiedInput == "null") {
- 	 			System.out.println("The length of the name must be between 3 and 15 characters\n and must not include numbers or special charaters.");
- 	 			
- 	 		} else {
- 	 			name = inputName;
- 	 			
- 	 			System.out.println(String.format("Farmer's name set to: %s.", inputName));
- 	 			break;
- 	 		}
- 		}
+ 		name = farmerName;
 	}
 	
 	
@@ -89,27 +78,12 @@ public class Farmer {
 	 */
 	private void setAge()
 	{
-		String scannerMsg = "Enter your farmer's age.";
-		String inputAge;
-		String verifiedInput;
-		
-		
- 		while (true) {
- 			inputAge = userInputHelper(scannerMsg);
- 			verifiedInput = verifyUserInput(inputAge, "age");
- 	 		
- 			if (verifiedInput == "null") {
- 	 			System.out.println("Farmer's age must be a number greater than 0.");
- 	 			
- 	 		} else {
- 	 			age = Integer.parseInt(inputAge);
- 	 			
- 	 			System.out.println(String.format("Farmer's age set to: %s.", inputAge));
- 	 			break;
- 	 		}
- 		}
+ 		String mode = "farmer age";
+ 		String message = "Enter your farmer's age.";
  		
- 		
+		String farmerAge = InputHandler.getUserInput(mode, message);
+		
+ 		age = Integer.parseInt(farmerAge);
 	}
 	
 	

@@ -6,8 +6,13 @@ public class InputHandler {
 
 	
 	
-	
-	public static void getUserInput(String inputMode, String message)
+	/*
+	 * 
+	 * 
+	 * @param inputMode				Where this method was called from
+	 * @param message				Message to print to user
+	 */
+	public static String getUserInput(String mode, String message)
 	{
 		
 		String scannerMsg = message;
@@ -16,20 +21,13 @@ public class InputHandler {
  		while (true) {
  			userInput = userInputHelper(scannerMsg);
  			
- 			// Make a check using inputMode
- 			if (validInput(inputMode, userInput)) {
- 				
- 				
+ 			if (validInput(mode, userInput)) {							// If input is valid
  				break;
  			}
- 			
- 			
- 			
  		}
 		
 		
-		
-		
+		return userInput;
 	}
 	
 	
@@ -57,54 +55,57 @@ public class InputHandler {
 	
 	
 	
-	
+	/*
+	 * 
+	 * 
+	 * @param mode
+	 * @param userInput
+	 * @return
+	 */
 	public static boolean validInput(String mode, String userInput)
 	{
 		
 		switch (mode) {
 		case "game duration":
 			if (validGameDuration(userInput)) {
-				// Do something
+				return true;
 			}
 			
 			break;
 			
 		case "farmer name":
 			if (validFarmerName(userInput)) {
-				// Do something
+				return true;
 			}
 			
 			break;
 		
 		case "farmer age":
 			if (validFarmerAge(userInput)) {
-				// Do something
+				return true;
 			}
 			
 			break;
 			
 		case "farm name":
 			if (validFarmName(userInput)) {
-				// Do something
+				return true;
 			}
 			
 			break;
 			
 		case "main menu":
 			if (validMainMenuOption(userInput)) {
-				// Do something
+				return true;
 			}
 			
 			break;
 			
 		
 		}
-			
 		
-
-		// If invalid then print some message
 		
-		return true;
+		return false;
 	}
 	
 	
@@ -265,8 +266,6 @@ public class InputHandler {
 		
 		return true;
 	}
-	
-	
 	
 	
 	

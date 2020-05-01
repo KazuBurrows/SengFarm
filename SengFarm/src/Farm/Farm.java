@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Crop.Apple;
 import Crop.Corn;
 import Crop.Crop;
+import InputHandler.InputHandler;
 import Item.Item;
 
 public class Farm extends FarmBonus {
@@ -91,18 +92,12 @@ public class Farm extends FarmBonus {
 	
 	private void setName()
 	{
-		String scannerMsg = "Enter your farm's name";
-		String inputName;
-		
- 		while (true) {
- 			inputName = userInputHelper(scannerMsg);
- 			break;
- 			
- 		}
-		
+ 		String mode = "farm name";
+ 		String message = "Enter your farm's name.";
  		
- 		name = inputName;
+		String farmName = InputHandler.getUserInput(mode, message);
 		
+ 		name = farmName;
 	}
 	
 	
@@ -120,6 +115,9 @@ public class Farm extends FarmBonus {
 	
 	
 	
+	/*
+	 * Set farm's money with fixed amount
+	 */
 	private void setMoney()
 	{
 		
