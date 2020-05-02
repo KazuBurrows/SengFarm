@@ -140,92 +140,70 @@ public class Game {
 	
 	
 	
+	/*
+	 * Print game status.
+	 */
+	private void printGameStatus()
+	{
+		String remainingDays = "Day %s of %s.";
+		String remainingActions = "Remaining actions available: %s.";
+		
+		System.out.println(String.format(remainingDays, getCurrentDay(), getGameDuration()));
+		System.out.println(String.format(remainingActions, getTotalActions()));
+		
+	}
 	
+
+	
+	/*
+	 * Main menu of game.
+	 */
+	private void mainMenu()
+	{
+
+ 		String mode = "main menu";
+ 		String message = "Enter number to select an action.";
+ 		
+ 		InputHandler.navigationOptionMessage(mode);
+		String selectedOption = InputHandler.getUserInput(mode, message);
+		
+		
+ 		handleAction(mode, Integer.parseInt(selectedOption));
+		
+	}
 	
 	
 	
 	/*
-	 * Reads user input.
 	 * 
-	 * @param scannerMsg		A message to ask the user.
-	 * @return 					User's input.
 	 */
-	private static String userInputHelper(String scannerMsg)
-	{
-		
-		String userInput; 
- 		System.out.println(scannerMsg);
-		
-		Scanner sc = new Scanner(System.in);
- 		userInput = sc.nextLine();
-		
- 		
- 		return userInput;
-		
-	}
-	
-	
-
-	
-	
-	private void mainMenu()
-	{
-		String actionType = "main menu";
-		
-		String checkStatus = "%s: Check farm status.";
-		String tendFarm = "%s: Tend to Farm.";
-		String tendCrop = "%s: Tend to crops.";
-		String tendAnimal = "%s: Tend to animals.";
-		String browseStore = "%s: Browse the store.";
-		String endDay = "%s: Go to next day.";
-		
-		String[] userOptions = {checkStatus, tendFarm, tendCrop, tendAnimal, browseStore, endDay};
-		String option;
-		
-		for (int i = 0; i < userOptions.length; i++) {
-			option = userOptions[i];
-			
-			System.out.println(String.format(option, i));
-		}
-		
-		
-		
-		String scannerMsg = "Enter number to select an action.";
-		String inputOption;
-		
- 		while (true) {
- 			inputOption = userInputHelper(scannerMsg);
- 			break;
- 			
- 		}
- 		
- 		
- 		String mode = "main menu";
- 		String message = "Enter number to select an action.";
- 		
-		String selectedOption = InputHandler.getUserInput(mode, message);
-		
- 		
- 		
- 		
- 		handleAction(actionType, Integer.parseInt(inputOption));
-//		return Integer.parseInt(inputOption);
-		
-	}
-	
-	
-	
 	private void handleAction(String actionType, int option)
 	{
+		String mode;
+		String message = "Enter number to select an action.";
 		
 		if (actionType == "main menu") {
-			
 			switch (option) {
-			
 			case 0:
-				// Get status options
-					// Game status
-					// Farm status
+				mode = "main status";
+				
+				InputHandler.navigationOptionMessage(mode);
+				
+				String userInput = InputHandler.getUserInput(mode, message);
+				int navOption = Integer.parseInt(userInput);
+				
+				
+				if (navOption == 0) {
+					printGameStatus();
+				}
+				
+				if (navOption == 1) {
+					// Get farm status
+				}
+				
+				
+				
+				
 				break;
 				
 			case 1:
@@ -280,7 +258,7 @@ public class Game {
 		
 		while (currentDay < gameDuration)
 		{
-			
+//			System.out.println("Main loop iteration.");
 			mainMenu();
 			
 			

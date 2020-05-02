@@ -1,5 +1,6 @@
 package InputHandler;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InputHandler {
@@ -95,13 +96,19 @@ public class InputHandler {
 			break;
 			
 		case "main menu":
-			if (validMainMenuOption(userInput)) {
+			if (validNavigationOption(userInput, 6)) {
 				return true;
 			}
 			
 			break;
 			
-		
+		case "main status":
+			if (validNavigationOption(userInput, 2)) {
+				return true;
+			}
+			
+			break;
+			
 		}
 		
 		
@@ -245,20 +252,21 @@ public class InputHandler {
 	 * @param userInput
 	 * @return
 	 */
-	private static boolean validMainMenuOption(String userInput)
+	private static boolean validNavigationOption(String userInput, int numOptions)
 	{
 		try {															// Try to convert input to integer and check input range
 			int option = Integer.parseInt(userInput);
 			
-			if (option < 0 || option > 5) {								// Check if option value is within range
-				System.out.println("Menu option must be a number between 0 and 5 inclusive.");
+			if (option < 0 || option > numOptions) {								// Check if option value is within range
+				String outOfRangeMessage = "Your option must be a number between 0 and %s inclusive.";
+				System.out.println(String.format(outOfRangeMessage, numOptions));
 				
 				return false;
 			}
 		}
 		
 		catch (NumberFormatException e) {								// Catch for input conversion from string to integer
-			System.out.println("Menu option value must be an integer.");
+			System.out.println("Your option value must be an integer.");
 			
 			return false;
 		}
@@ -266,6 +274,77 @@ public class InputHandler {
 		
 		return true;
 	}
+	
+	
+	
+	
+	
+	/*
+	 * Print navigation options for main menu
+	 */
+	public static void navigationOptionMessage(String mode)
+	{
+		
+		ArrayList<String> userOptions = new ArrayList<String>();
+		String option;
+		
+		switch (mode) {
+		case "main menu":
+			String checkStatus = "%s: Check farm status.";
+			String tendFarm = "%s: Tend to Farm.";
+			String tendCrop = "%s: Tend to crops.";
+			String tendAnimal = "%s: Tend to animals.";
+			String browseStore = "%s: Browse the store.";
+			String endDay = "%s: Go to next day.";
+			
+			userOptions.add(checkStatus);
+			userOptions.add(tendFarm);
+			userOptions.add(tendCrop);
+			userOptions.add(tendAnimal);
+			userOptions.add(browseStore);
+			userOptions.add(endDay);
+			
+			
+			for (int i = 0; i < userOptions.size(); i++) {
+				option = userOptions.get(i);
+				
+				System.out.println(String.format(option, i));
+			}
+			
+			break;
+			
+			
+		case "main status":
+			String gameStatus = "%s: Check game status.";
+			String farmStatus = "%s: Check farm status.";
+			
+			userOptions.add(gameStatus);
+			userOptions.add(farmStatus);
+			
+			
+			for (int i = 0; i < userOptions.size(); i++) {
+				option = userOptions.get(i);
+				
+				System.out.println(String.format(option, i));
+			}
+			
+			break;
+			
+			
+		
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+	}
+	
+	
 	
 	
 	

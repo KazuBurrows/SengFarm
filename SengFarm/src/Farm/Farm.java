@@ -42,34 +42,39 @@ public class Farm extends FarmBonus {
 	 */
 	public void getStatus()
 	{
-//		String cropMessage = "Crop status./n  {}: x{}, Harvest in {} days.";
-		String cropMessage = "{}: Harvest in {} days.";
+//		String cropMessage = "{}: Harvest in {} days.";
+//		
+//		Crop crop;
+//		System.out.println("Crop Status");
+//		
+//		Iterator<Crop> cropIter = crops.iterator();
+//		while (cropIter.hasNext()) {
+//			crop = cropIter.next();
+//			
+//			System.out.println(String.format(cropMessage, crop.getName(), crop.getHarvestDay()));
+//				
+//        }
+//		
+//		
+//		
+//		String animalMessage = "{}: Happiness at {}.";
+//		
+//		Animal animal;
+//		System.out.println("Animal Status");
+//		
+//		Iterator<Animal> animalIter = animals.iterator();
+//		while (animalIter.hasNext()) {
+//			animal = animalIter.next();
+//			
+//			System.out.println(String.format(animalMessage, animal.getName(), animal.getHappy()));
+//				
+//        }
 		
-		Crop crop;
-		System.out.println("Crop Status");
 		
-		Iterator<Crop> cropIter = crops.iterator();
-		while (cropIter.hasNext()) {
-			crop = cropIter.next();
-			
-			System.out.println(String.format(cropMessage, crop.getName(), crop.getHarvestDay()));
-				
-        }
+		// Option for animal or crop status
 		
 		
 		
-		String animalMessage = "{}: Happiness at {}.";
-		
-		Animal animal;
-		System.out.println("Animal Status");
-		
-		Iterator<Animal> animalIter = animals.iterator();
-		while (animalIter.hasNext()) {
-			animal = animalIter.next();
-			
-			System.out.println(String.format(animalMessage, animal.getName(), animal.getHappy()));
-				
-        }
 		
 		
 	}
