@@ -40,7 +40,7 @@ public class Farm extends FarmBonus {
 	 *  Prints the farm’s crops and animals. Includes crop’s time growing, 
 	 *  the time left until a crop’s harvest, and an animal’s happiness levels. 
 	 */
-	public void getStatus()
+	public void printStatus()
 	{
 //		String cropMessage = "{}: Harvest in {} days.";
 //		

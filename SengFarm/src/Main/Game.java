@@ -164,7 +164,7 @@ public class Game {
  		String mode = "main menu";
  		String message = "Enter number to select an action.";
  		
- 		InputHandler.navigationOptionMessage(mode);
+ 		InputHandler.printNavigationOption(mode);
 		String selectedOption = InputHandler.getUserInput(mode, message);
 		
 		
@@ -175,7 +175,7 @@ public class Game {
 	
 	
 	/*
-	 * 
+	 * Handle user selected action.
 	 */
 	private void handleAction(String actionType, int option)
 	{
@@ -187,22 +187,12 @@ public class Game {
 			case 0:
 				mode = "main status";
 				
-				InputHandler.navigationOptionMessage(mode);
+				InputHandler.printNavigationOption(mode);
 				
 				String userInput = InputHandler.getUserInput(mode, message);
 				int navOption = Integer.parseInt(userInput);
 				
-				
-				if (navOption == 0) {
-					printGameStatus();
-				}
-				
-				if (navOption == 1) {
-					// Get farm status
-				}
-				
-				
-				
+				handleAction(mode, navOption);
 				
 				break;
 				
@@ -238,6 +228,55 @@ public class Game {
 				break;
 				
 			}
+		}
+		
+		
+		if (actionType == "main status") {
+			switch (option) {
+			case 0:
+				printGameStatus();
+				
+				break;
+				
+			case 1:
+				mode = "farm status";
+		 		
+		 		InputHandler.printNavigationOption(mode);
+		 		
+				String userInput = InputHandler.getUserInput(mode, message);
+				int navOption = Integer.parseInt(userInput);
+				
+				handleAction(mode, navOption);
+				
+				break;
+				
+			}
+			
+			
+		}
+		
+		
+		if (actionType == "farm status") {
+			switch (option) {
+			case 0:
+				// Print farm's money
+				break;
+				
+			case 1:
+				// Print crop status
+				break;
+				
+			case 2:
+				// Print animal status
+				break;
+				
+			case 3:
+				// Browse inventory
+				break;
+			
+			}
+			
+			
 			
 			
 		}

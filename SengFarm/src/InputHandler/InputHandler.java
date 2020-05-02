@@ -282,7 +282,7 @@ public class InputHandler {
 	/*
 	 * Print navigation options for main menu
 	 */
-	public static void navigationOptionMessage(String mode)
+	public static void printNavigationOption(String mode)
 	{
 		
 		ArrayList<String> userOptions = new ArrayList<String>();
@@ -290,7 +290,7 @@ public class InputHandler {
 		
 		switch (mode) {
 		case "main menu":
-			String checkStatus = "%s: Check farm status.";
+			String checkStatus = "%s: Check game status.";
 			String tendFarm = "%s: Tend to Farm.";
 			String tendCrop = "%s: Tend to crops.";
 			String tendAnimal = "%s: Tend to animals.";
@@ -304,13 +304,6 @@ public class InputHandler {
 			userOptions.add(browseStore);
 			userOptions.add(endDay);
 			
-			
-			for (int i = 0; i < userOptions.size(); i++) {
-				option = userOptions.get(i);
-				
-				System.out.println(String.format(option, i));
-			}
-			
 			break;
 			
 			
@@ -321,24 +314,36 @@ public class InputHandler {
 			userOptions.add(gameStatus);
 			userOptions.add(farmStatus);
 			
-			
-			for (int i = 0; i < userOptions.size(); i++) {
-				option = userOptions.get(i);
-				
-				System.out.println(String.format(option, i));
-			}
-			
 			break;
 			
 			
 		
+		case "farm status":
+			String totalMoney = "%s: Check money.";
+			String cropStatus = "%s: Check crops.";
+			String animalStatus = "%s: Check animals.";
+			String browseInventory = "%s: Browse inventory.";
 			
+			userOptions.add(totalMoney);
+			userOptions.add(cropStatus);
+			userOptions.add(animalStatus);
+			userOptions.add(browseInventory);
 			
+			break;
 			
 			
 			
 			
 		}
+		
+		
+		// Print navigation options
+		for (int i = 0; i < userOptions.size(); i++) {
+			option = userOptions.get(i);
+			
+			System.out.println(String.format(option, i));
+		}
+		
 		
 		
 		
