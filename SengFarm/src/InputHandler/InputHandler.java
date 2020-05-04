@@ -33,6 +33,25 @@ public class InputHandler {
 	
 	
 	
+	public static String getSpecialUserInput(String mode, String message, int indexRange)
+	{
+		String scannerMsg = message;
+		String userInput;
+		
+ 		while (true) {
+ 			userInput = userInputHelper(scannerMsg);
+ 			
+ 			if (specialValidInput(mode, userInput, indexRange)) {							// If input is valid
+ 				break;
+ 			}
+ 		}
+		
+		
+		return userInput;
+		
+		
+	}
+	
 	
 	/*
 	 * Reads user input.
@@ -63,7 +82,7 @@ public class InputHandler {
 	 * @param userInput
 	 * @return
 	 */
-	public static boolean validInput(String mode, String userInput)
+	private static boolean validInput(String mode, String userInput)
 	{
 		
 		switch (mode) {
@@ -113,6 +132,24 @@ public class InputHandler {
 			if (validNavigationOption(userInput, 3)) {
 				return true;
 			}
+			
+			break;
+			
+			
+		case "select tend crop":
+			if (validNavigationOption(userInput, 2)) {
+				return true;
+			}
+			
+			break;
+			
+			
+		case "browse store":
+			if (validNavigationOption(userInput, 5)) {
+				return true;
+			}
+			
+			break;
 		}
 		
 		
@@ -122,6 +159,16 @@ public class InputHandler {
 	
 	
 	
+	private static boolean specialValidInput(String mode, String userInput, int indexRange)
+	{
+		if (validNavigationOption(userInput, indexRange)) {
+			
+			return true;
+		}
+		
+		
+		return false;
+	}
 	
 	
 	
@@ -334,6 +381,23 @@ public class InputHandler {
 			userOptions.add(browseInventory);
 			
 			break;
+		
+			
+		
+		case "select tend crop":
+			String useWater = "%s: Use water.";
+			String useItem = "%s: Use an item.";
+			String harvest = "%s: Harvest crop.";
+			
+			userOptions.add(useWater);
+			userOptions.add(useItem);
+			userOptions.add(harvest);
+		
+			break;
+			
+			
+			
+			
 			
 		}
 		

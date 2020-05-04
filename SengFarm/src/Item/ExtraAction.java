@@ -15,7 +15,7 @@ public class ExtraAction extends Item {
 	public void useItem(Game game) {
 		// Do something
 		
-		game.addAction();
+//		game.addAction();
 		
 		
 	}

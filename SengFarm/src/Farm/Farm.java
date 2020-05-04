@@ -1,6 +1,8 @@
 package Farm;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import Crop.Apple;
@@ -32,7 +34,7 @@ public class Farm extends FarmBonus {
 	{
 		setName();
 		farmer = farmerCharacter;
-		setMoney();
+		money = 1000;
 		
 	}
 	
@@ -92,14 +94,6 @@ public class Farm extends FarmBonus {
 	
 	
 	
-	/*
-	 * Set farm's money with fixed amount
-	 */
-	private void setMoney()
-	{
-		
-		money = 1000;
-	}
 	
 	
 	/*
@@ -172,10 +166,68 @@ public class Farm extends FarmBonus {
 	
 	
 	/*
-	 * Get the quantity and type of crops are on the farm
+	 * Crop name harvest day.
 	 */
-	public void printCrops()
+	public void printCrops(int gameDuration)
 	{
+		
+		if (crops.size() > 0) {
+			Iterator<Crop> itr = crops.iterator();
+			String msg = "%s will be ready to be harvested in %s days.";
+			
+			Crop crop;
+			String cName;
+			int cHarvestReady;
+			while (itr.hasNext()) {
+				crop = itr.next();
+				
+				cName = crop.getName();
+				cHarvestReady = Math.max(0, gameDuration - crop.getHarvestDay());
+				
+				
+				System.out.print(String.format(msg, cName, cHarvestReady));
+				
+			}
+			
+		} else {
+			System.out.println("The farm has no crops growing. Go to the store to purchace crops.");
+			
+		}
+		
+	}
+
+	
+	
+	
+	/*
+	 * 
+	 */
+	public void browseCrops(int gameDuration)
+	{
+		if (crops.size() <= 0) {
+			System.out.println("The farm has no crops growing. Go to the store to purchace crops.");
+			
+			return;
+		}
+		
+		
+		String msg = "%s: %s can be harvested in %s days.";
+		
+		Crop crop;
+		String cName;
+		int cHarvestReady;
+		
+		for (int i = 0; i < crops.size(); i++) {
+			crop = crops.get(i);
+			
+			cName = crop.getName();
+			cHarvestReady = Math.max(0, gameDuration - crop.getHarvestDay());
+			
+			
+			System.out.println(String.format(msg, i, cName, cHarvestReady));
+			
+		}
+		
 		
 		
 		
@@ -183,57 +235,27 @@ public class Farm extends FarmBonus {
 	
 	
 	
-	/*
-	 * Get a crop object selected by player
-	 * 
-	 * @return			Crop selected by the player
-	 */
-	public Crop getCrop()
+	
+	
+	public int getNumCrops()
 	{
 		
-		// print select options
+		return crops.size();
+	}
+	
+	
+	
+	/*
+	 * Get a crop object using index
+	 * 
+	 * @param  index	Crop object index in crops arraylist
+	 * @return			Crop selected by the player
+	 */
+	public Crop getCrop(int index)
+	{
 		
-		// get input
-		
-		// verify
-		
-		// get crop
-		
-		// return crop
-		
-		
-		
-		String msg = "%s: %s harvest day %s.";
-		
-		Crop crop = null;
-		
-		for (int i = 0; i < crops.size(); i++)
-		{
-			crop = crops.get(i);
-			
-			
-			System.out.println(String.format(msg, i, crop.getName(), crop.getHarvestDay()));
-			
-			
-		}
-		
-		
-		String scannerMsg = "Enter number.";
-		int userInput = 0;
 
-		
- 		while (true) {
- 			userInput = Integer.parseInt(userInputHelper(scannerMsg));
- 	 		break;
- 			
- 		}
-		
-		
- 		
- 		
-		
-		
-		return crops.get(userInput);
+		return crops.get(index);
 		
 	}
 	
@@ -265,42 +287,66 @@ public class Farm extends FarmBonus {
 	
 	
 	
+	public void harvestCrop()
+	{
+		
+	}
+	
+	
+	public int getNumItems()
+	{
+		
+		return items.size();
+	}
+	
+	
+	
+	
+	
 	/*
 	 * Get the quantity and type of items are in the farm's inventory
 	 */
 	public void printItems()
 	{
 		
-		String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
-		int[] itemCount = new int[6];
-		
-		Iterator<Item> itr = items.iterator();
-		
-		Item item;
-		int index;
-		while (itr.hasNext()) {
-			item = itr.next();
-			index = Item.itemInstanceOf(item);
+		if (items.size() > 0) {
+			String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
+			int[] itemCount = new int[6];
 			
-			itemCount[index]++;
+			Iterator<Item> itr = items.iterator();
+			
+			Item item;
+			int index;
+			while (itr.hasNext()) {
+				item = itr.next();
+				index = Item.itemInstanceOf(item);
+				
+				itemCount[index]++;
+			}
+			
+			
+			// Now print quantity and item names
+			String itemStatus = "x%s: %s.";
+			
+			int itemQuantity;
+			String itemKey;
+			for (int i = 0; i < itemCount.length; i++) {
+				itemQuantity = itemCount[i];
+				itemKey = itemKeys[i];
+				
+				if (itemQuantity > 0) {
+					System.out.println(String.format(itemStatus, itemQuantity, itemKey));
+					
+				}
+				
+				
+			}
+		
+		} else {
+			
+			System.out.println("Inventory is empty. Go to the store to purchace items.");
+			
 		}
-		
-		
-		// Now print quantity and item names
-		String itemStatus = "x%s: %s.";
-		
-		int itemQuantity;
-		String itemKey;
-		for (int i = 0; i < itemCount.length; i++) {
-			itemQuantity = itemCount[i];
-			itemKey = itemKeys[i];
-			
-			System.out.println(String.format(itemStatus, itemQuantity, itemKey));
-			
-		}
-		
-		
-		System.out.println("test");
 		
 	}
 	
@@ -311,17 +357,14 @@ public class Farm extends FarmBonus {
 	 */
 	public void browseInventory()
 	{
-//		String itemNavigation = "%s: %s";
-//		
-//		Item item;
-//		for (int i = 0; i < items.size(); i++) {
-//			item = items.get(i);
-//			
-//			System.out.println();
-//			
-//			
-//			
-//		}
+		String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
+		String itemNavigation = "%s: %s";
+		
+		for (int i = 0; i < items.size(); i++) {
+			
+			System.out.println(String.format(itemNavigation, i, itemKeys[i]));
+			
+		}
 		
 		
 	}

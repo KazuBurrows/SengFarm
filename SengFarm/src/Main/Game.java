@@ -2,9 +2,12 @@ package Main;
 
 import java.util.Scanner;
 
+import Crop.Apple;
+import Crop.Crop;
 import Farm.Farm;
 import Farm.Farmer;
 import InputHandler.InputHandler;
+import Item.Item;
 
 public class Game {
 	
@@ -31,6 +34,9 @@ public class Game {
 		farm = new Farm(farmer);
 		store = new Store();
 		event = new Event();
+		
+		Apple a = new Apple();
+		farm.addCrop(a);
 		
 		runGame();
 	}
@@ -181,6 +187,8 @@ public class Game {
 	{
 		String mode;
 		String message = "Enter number to select an action.";
+		String userInput;
+		int navOption;
 		
 		if (actionType == "main menu") {
 			switch (option) {
@@ -189,8 +197,8 @@ public class Game {
 				
 				InputHandler.printNavigationOption(mode);
 				
-				String userInput = InputHandler.getUserInput(mode, message);
-				int navOption = Integer.parseInt(userInput);
+				userInput = InputHandler.getUserInput(mode, message);
+				navOption = Integer.parseInt(userInput);
 				
 				handleAction(mode, navOption);
 				
@@ -198,6 +206,10 @@ public class Game {
 				
 			case 1:
 				// Tend to farm
+				mode = "tend farm";
+				
+				
+				
 				break;
 				
 			case 2:
@@ -208,6 +220,71 @@ public class Game {
 					// Use item on crop
 					// or
 					// harvest crop
+				
+				mode = "tend crop";
+				
+				farm.browseCrops(gameDuration);
+				int numCrops = farm.getNumCrops();
+				
+				userInput = InputHandler.getSpecialUserInput(mode, message, numCrops);
+				navOption = Integer.parseInt(userInput);
+				
+				Crop crop = farm.getCrop(navOption);
+				
+				
+				// Options water or use item
+				mode = "select tend crop";
+				
+				InputHandler.printNavigationOption(mode);
+				
+				userInput = InputHandler.getUserInput(mode, message);
+				navOption = Integer.parseInt(userInput);
+				
+				
+				switch (navOption) {
+				case 0:
+					// water
+					
+					crop.reduceHarvestDay(0);
+					break;
+					
+				case 1:
+					// item
+					mode = "tend crop item";
+					
+					int numItems = farm.getNumItems();
+					
+					farm.printItems();
+					farm.browseInventory();				// PROBABLY SHOULD JUST PRINT ITEMS THAT CAN BE USED AND EXISTS
+					
+					userInput = InputHandler.getSpecialUserInput(mode, message, numCrops);
+					navOption = Integer.parseInt(userInput);
+					
+					
+					// now check if item exists
+					
+					
+					// NOT FINISHED
+					
+					
+					break;
+					
+				case 2:
+					// harvest
+					
+					
+					
+					
+					
+					break;
+				
+				}
+				
+				
+				
+				
+				
+				
 				break;
 				
 			case 3:
@@ -221,6 +298,28 @@ public class Game {
 			case 4:
 				// Browse store
 					// Print what's for sale with quantity and price
+				
+				
+				mode = "browse store";
+				store.printInventory();
+				
+				userInput = InputHandler.getUserInput(mode, message);
+				navOption = Integer.parseInt(userInput);
+				
+				
+				// Check if item can be bought
+				Item item = store.purchaseItem(navOption, farm.getMoney());
+				
+				if (item == null) {
+					System.out.println("Could not purchase item because not enough money to purchase item or item is not in stock.");
+					
+				} else {
+					farm.addItem(item);
+					System.out.println(String.format("You have purchased one %s.", item.getName()));
+					
+				}
+				
+				
 				break;
 				
 			case 5:
@@ -243,8 +342,8 @@ public class Game {
 		 		
 		 		InputHandler.printNavigationOption(mode);
 		 		
-				String userInput = InputHandler.getUserInput(mode, message);
-				int navOption = Integer.parseInt(userInput);
+				userInput = InputHandler.getUserInput(mode, message);
+				navOption = Integer.parseInt(userInput);
 				
 				handleAction(mode, navOption);
 				
@@ -266,29 +365,26 @@ public class Game {
 				
 			case 1:
 				// Print crop status
-				farm.printCrops();
+				farm.printCrops(gameDuration);
 				
 				break;
 				
 			case 2:
 				// Print animal status
-				farm.printAnimals();
+				farm.printAnimals();											// NOT FINISHED
 				
 				break;
 				
 			case 3:
-				// Browse inventory	- Just looking in inventory
-				
+				// Print inventory	- Just looking in inventory
 				farm.printItems();
 				
 				break;
 			
 			}
 			
-			
-			
-			
 		}
+		
 		
 
 	}

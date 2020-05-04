@@ -97,14 +97,14 @@ public class Item extends ItemBonus {
 	
 	
 	
-//	/*
-//	 * Only for sub-classes to override
-//	 */
-//	@Override
-//	public void useItem(Farm farm) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	/*
+	 * Only for sub-classes to override
+	 */
+	@Override
+	public void useItem(Farm farm) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

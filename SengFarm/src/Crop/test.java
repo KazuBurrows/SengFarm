@@ -1,7 +1,7 @@
 package Crop;
 
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 
 public class test {
 
@@ -26,7 +26,7 @@ public class test {
 		crops.add(w);
 		crops.add(b);
 		
-		Collections.sort(crop);
+//		Collections.sort(crop);
 		
 		
 		

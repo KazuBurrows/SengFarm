@@ -20,10 +20,10 @@ public class Fertilizer extends Item {
 	public void useItem(Farm farm) {
 		
 		// Prompt user to select item
-		Crop crop = farm.getCrop();
-		
-		int reduceBy = 2;
-		crop.reduceHarvestDay(reduceBy);
+//		Crop crop = farm.getCrop();
+//		
+//		int reduceBy = 2;
+//		crop.reduceHarvestDay(reduceBy);
 		
 	}
 	

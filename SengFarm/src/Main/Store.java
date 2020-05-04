@@ -4,7 +4,7 @@ import Item.ExtraAction;
 import Item.FavouriteFood;
 import Item.Fertilizer;
 import Item.Food;
-import Item.Listable;
+import Item.Item;
 import Item.StoreCoupon;
 
 public class Store {
@@ -39,7 +39,7 @@ public class Store {
 	/*
 	 * Prints to the user the quantities of each item in the inventory and how to select the item.
 	 */
-	public void getItems()
+	public void printInventory()
 	{
 		String message = "%d : %s. %d in stock.";
 		String itemName;
@@ -62,29 +62,54 @@ public class Store {
 	/*
 	 * Verify input, then reduces the quantity of an item in the inventory by one.
 	 */
-	public Listable purchaseItem(int itemIndex)
+	public Item purchaseItem(int itemIndex, int playerMoney)
 	{
-		//need to check quantity of item
-		// then reduce quantity of item to one less.
-		
 		//Give options when item is selected, e.g get item description, or cancel purchase.
 		
 		switch (itemIndex) { 
         case 0:
             Fertilizer fertilizer = new Fertilizer();
-            return fertilizer;
+            
+            if (canPurchase(itemIndex, fertilizer, playerMoney)) {
+            	inventory[itemIndex]--;
+            	
+            	return fertilizer;
+            }
+            
+            return null;
         	
         case 1:
         	Food food = new Food();
-            return food;
+        	
+        	if (canPurchase(itemIndex, food, playerMoney)) {
+            	inventory[itemIndex]--;
+            	
+            	return food;
+            }
+        	
+            return null;
             
         case 2:
         	FavouriteFood fav_food = new FavouriteFood();
-            return fav_food;
+        	
+        	if (canPurchase(itemIndex, fav_food, playerMoney)) {
+            	inventory[itemIndex]--;
+            	
+            	return fav_food;
+            }
+        	
+            return null;
             
         case 3:
         	AnimalToy toy = new AnimalToy();
-            return toy;
+        	
+        	if (canPurchase(itemIndex, toy, playerMoney)) {
+            	inventory[itemIndex]--;
+            	
+            	return toy;
+            }
+        	
+            return null;
             
         case 4:
         	StoreCoupon coupon = new StoreCoupon();
@@ -92,12 +117,36 @@ public class Store {
             
         case 5:
         	ExtraAction extra_action = new ExtraAction();
-            return extra_action;
+        	
+        	if (canPurchase(itemIndex, extra_action, playerMoney)) {
+            	inventory[itemIndex]--;
+            	
+            	return extra_action;
+            }
+        	
+            return null;
             
         }
 		
 		
 		return null;
+	}
+	
+	
+	
+	
+	private boolean canPurchase(int itemIndex, Item item, int playerMoney)
+	{
+		if (inventory[itemIndex] < 0) {
+			return false;
+		}
+		
+		if (item.getPrice() > playerMoney) {
+			return false;
+		}
+		
+		
+		return true;
 	}
 	
 	

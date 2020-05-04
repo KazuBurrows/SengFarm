@@ -21,7 +21,7 @@ public class test {
 		
 		for (int i = 0; i < items.size(); i++) {
 			System.out.println(items.get(i).getName());
-			items.get(i).applyItemBonus();
+//			items.get(i).applyItemBonus();
 			
 		}
 		
