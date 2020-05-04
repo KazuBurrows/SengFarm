@@ -7,6 +7,7 @@ import Crop.Apple;
 import Crop.Corn;
 import Crop.Crop;
 import InputHandler.InputHandler;
+import Item.Fertilizer;
 import Item.Item;
 
 public class Farm extends FarmBonus {
@@ -36,49 +37,6 @@ public class Farm extends FarmBonus {
 	}
 	
 	
-	/*
-	 *  Prints the farm’s crops and animals. Includes crop’s time growing, 
-	 *  the time left until a crop’s harvest, and an animal’s happiness levels. 
-	 */
-	public void printStatus()
-	{
-//		String cropMessage = "{}: Harvest in {} days.";
-//		
-//		Crop crop;
-//		System.out.println("Crop Status");
-//		
-//		Iterator<Crop> cropIter = crops.iterator();
-//		while (cropIter.hasNext()) {
-//			crop = cropIter.next();
-//			
-//			System.out.println(String.format(cropMessage, crop.getName(), crop.getHarvestDay()));
-//				
-//        }
-//		
-//		
-//		
-//		String animalMessage = "{}: Happiness at {}.";
-//		
-//		Animal animal;
-//		System.out.println("Animal Status");
-//		
-//		Iterator<Animal> animalIter = animals.iterator();
-//		while (animalIter.hasNext()) {
-//			animal = animalIter.next();
-//			
-//			System.out.println(String.format(animalMessage, animal.getName(), animal.getHappy()));
-//				
-//        }
-		
-		
-		// Option for animal or crop status
-		
-		
-		
-		
-		
-	}
-	
 	
 	
 	/*
@@ -94,7 +52,9 @@ public class Farm extends FarmBonus {
 	
 	
 	
-	
+	/*
+	 * 
+	 */
 	private void setName()
 	{
  		String mode = "farm name";
@@ -116,6 +76,18 @@ public class Farm extends FarmBonus {
 	{
 		
 		return money;
+	}
+	
+	
+	
+	/*
+	 * 
+	 */
+	public void printMoney()
+	{
+		String moneyStatus = "The farm has $%s.";
+		System.out.println(String.format(moneyStatus, getMoney()));
+		
 	}
 	
 	
@@ -152,42 +124,50 @@ public class Farm extends FarmBonus {
 	
 	
 	
-	/*
-	 * Get the number of animals on the farm
-	 * 
-	 * @return		Total number of animals
-	 */
-	public int getNumAnimals()
+	public void printAnimals()
 	{
-		
-		return animals.size();
-	}
 	
-	
-	
-	/*
-	 * Append a new animal to animals arrayList
-	 * 
-	 * @param animal		Animal object being appended
-	 */
-	public void addAnimal(Animal animal)
-	{
-		animals.add(animal);
 		
 	}
 	
 	
-	
-	/*
-	 * Pop an animal off the animals arrayList
-	 * 
-	 * @param animal		Animal object being removed
-	 */
-	public void removeAnimal(Animal animal)
-	{
-		animals.remove(animal);
-		
-	}
+//	
+//	/*
+//	 * Get the number of animals on the farm
+//	 * 
+//	 * @return		Total number of animals
+//	 */
+//	public int getNumAnimals()
+//	{
+//		
+//		return animals.size();
+//	}
+//	
+//	
+//	
+//	/*
+//	 * Append a new animal to animals arrayList
+//	 * 
+//	 * @param animal		Animal object being appended
+//	 */
+//	public void addAnimal(Animal animal)
+//	{
+//		animals.add(animal);
+//		
+//	}
+//	
+//	
+//	
+//	/*
+//	 * Pop an animal off the animals arrayList
+//	 * 
+//	 * @param animal		Animal object being removed
+//	 */
+//	public void removeAnimal(Animal animal)
+//	{
+//		animals.remove(animal);
+//		
+//	}
 	
 	
 	
@@ -291,15 +271,57 @@ public class Farm extends FarmBonus {
 	public void printItems()
 	{
 		
-		// print select options
+		String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
+		int[] itemCount = new int[6];
 		
-		// get input
+		Iterator<Item> itr = items.iterator();
 		
-		// verify
+		Item item;
+		int index;
+		while (itr.hasNext()) {
+			item = itr.next();
+			index = Item.itemInstanceOf(item);
+			
+			itemCount[index]++;
+		}
 		
-		// get crop
 		
-		// return crop
+		// Now print quantity and item names
+		String itemStatus = "x%s: %s.";
+		
+		int itemQuantity;
+		String itemKey;
+		for (int i = 0; i < itemCount.length; i++) {
+			itemQuantity = itemCount[i];
+			itemKey = itemKeys[i];
+			
+			System.out.println(String.format(itemStatus, itemQuantity, itemKey));
+			
+		}
+		
+		
+		System.out.println("test");
+		
+	}
+	
+	
+	
+	/*
+	 * 
+	 */
+	public void browseInventory()
+	{
+//		String itemNavigation = "%s: %s";
+//		
+//		Item item;
+//		for (int i = 0; i < items.size(); i++) {
+//			item = items.get(i);
+//			
+//			System.out.println();
+//			
+//			
+//			
+//		}
 		
 		
 	}
@@ -307,15 +329,15 @@ public class Farm extends FarmBonus {
 	
 	
 	/*
-	 * Get a item object selected by player
-	 * 
-	 * @return			Item selected by the player
-	 */
-	public Item getItem()
-	{
-		
-		
-	}
+//	 * Get a item object selected by player
+//	 * 
+//	 * @return			Item selected by the player
+//	 */
+//	public Item getItem()
+//	{
+//		
+//		return items.get();
+//	}
 	
 	
 	
@@ -376,22 +398,18 @@ public class Farm extends FarmBonus {
 	}
 	
 	
-	
-	
+
 	
 	public static void main(String[] args)
 	{
 		
-		Farmer fer = new Farmer();
-		Farm f = new Farm("Test", fer, 0);
+//		Farmer fer = new Farmer();
+//		Farm f = new Farm(fer);
+				
 		
-		Apple a = new Apple();
-		Corn c = new Corn();
 		
-		f.addCrop(a);
-		f.addCrop(c);
 		
-		f.getCrop();
+		
 		
 	}
 	

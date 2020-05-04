@@ -64,6 +64,37 @@ public class Item extends ItemBonus {
 		return description;
 	}
 	
+
+	
+	/*
+	 * 
+	 */
+	public static int itemInstanceOf(Item item) {
+		
+		if (item instanceof Fertilizer) {
+			return 0;
+		}
+		else if (item instanceof Food) {
+			return 1;
+		}
+		else if (item instanceof FavouriteFood) {
+			return 2;
+		}
+		else if (item instanceof AnimalToy) {
+			return 3;
+		}
+		else if (item instanceof ExtraAction) {
+			return 4;
+		}
+		else if (item instanceof StoreCoupon) {
+			return 5;
+		}
+		
+		return 0;
+	}
+	
+	
+	
 	
 	
 //	/*

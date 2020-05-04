@@ -109,6 +109,10 @@ public class InputHandler {
 			
 			break;
 			
+		case "farm status":
+			if (validNavigationOption(userInput, 3)) {
+				return true;
+			}
 		}
 		
 		
@@ -331,11 +335,7 @@ public class InputHandler {
 			
 			break;
 			
-			
-			
-			
 		}
-		
 		
 		// Print navigation options
 		for (int i = 0; i < userOptions.size(); i++) {

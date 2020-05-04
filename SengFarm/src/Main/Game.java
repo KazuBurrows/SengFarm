@@ -260,18 +260,27 @@ public class Game {
 			switch (option) {
 			case 0:
 				// Print farm's money
+				farm.printMoney();
+				
 				break;
 				
 			case 1:
 				// Print crop status
+				farm.printCrops();
+				
 				break;
 				
 			case 2:
 				// Print animal status
+				farm.printAnimals();
+				
 				break;
 				
 			case 3:
-				// Browse inventory
+				// Browse inventory	- Just looking in inventory
+				
+				farm.printItems();
+				
 				break;
 			
 			}
@@ -305,6 +314,7 @@ public class Game {
 		}
 		
 	}
+	
 	
 	
 	
