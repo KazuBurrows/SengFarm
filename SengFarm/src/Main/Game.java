@@ -35,7 +35,7 @@ public class Game {
 		store = new Store();
 		event = new Event();
 		
-		Apple a = new Apple();
+		Apple a = new Apple(currentDay);
 		farm.addCrop(a);
 		
 		runGame();
@@ -93,7 +93,7 @@ public class Game {
 		currentDay++;
 		resetActions();
 		
-//		Event.checkForEvent();
+		Event.checkForEvent(farm, );
 		
 	}
 	
@@ -272,9 +272,8 @@ public class Game {
 				case 2:
 					// harvest
 					
-					
-					
-					
+					farm.harvestCrop(crop, currentDay);
+
 					
 					break;
 				
@@ -324,6 +323,8 @@ public class Game {
 				
 			case 5:
 				// Precede to next day
+				nextDay();
+				
 				break;
 				
 			}
@@ -405,9 +406,16 @@ public class Game {
 //			System.out.println("Main loop iteration.");
 			mainMenu();
 			
-			
-			
 		}
+		
+		
+		
+		System.out.println("End of game.");
+		
+		// Print game status/ experience
+		
+		
+		
 		
 	}
 	

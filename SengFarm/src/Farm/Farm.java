@@ -185,7 +185,7 @@ public class Farm extends FarmBonus {
 				cHarvestReady = Math.max(0, gameDuration - crop.getHarvestDay());
 				
 				
-				System.out.print(String.format(msg, cName, cHarvestReady));
+				System.out.println(String.format(msg, cName, cHarvestReady));
 				
 			}
 			
@@ -287,8 +287,27 @@ public class Farm extends FarmBonus {
 	
 	
 	
-	public void harvestCrop()
+	public void harvestCrop(Crop crop, int currentDay)
 	{
+		
+		System.out.println("Curretn day = " + currentDay);
+		System.out.println("Harvest day = " + crop.getHarvestDay());
+		
+		String msg;
+		if (crop.getHarvestDay() >= currentDay) {
+			msg = "%s is not ready for harvest.";
+			System.out.println(String.format(msg, crop.getName()));
+			
+			return;
+		}
+		
+		
+		int amount = crop.getCropProfit();
+		addMoney(amount);
+		removeCrop(crop);
+		
+		msg = "%s has been harvested and $%s has been added to the farm's money.";
+		System.out.println(String.format(msg, crop.getName(), amount));
 		
 	}
 	

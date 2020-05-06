@@ -1,18 +1,29 @@
 package Main;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.concurrent.ThreadLocalRandom;
+
+import com.sun.tools.javac.util.ArrayUtils;
+
+import Crop.Crop;
+import Farm.Farm;
+
 public class Event {
 
 	private final static double DROUGHT_PROBABILITY = 0.05;
 	private final static double BROKEN_FENCE_PROBABILITY = 0.10;
 	private final static double COUNTY_FAIR_PROBABILITY = 0.08;
 	
-	
+	Farm farm;
 	
 	/*
 	 * Calls random events that have a static probability of occurring  -  Rewrite this comment
 	 */
-	public void checkForEvent()
+	public void checkForEvent(Farm f)
 	{
+		farm = f;
 		
 		drought();
 		brokenFence();
@@ -28,6 +39,41 @@ public class Event {
 		
 		if (isDrought) {
 			// Farm loses half of its growing crops. The exact number is determined randomly.
+			
+			int numCrops = farm.getNumCrops();
+			
+			int randIndex;
+			int maxIterCount = numCrops/2;
+			int listCount = 0;
+			
+			ArrayList<Integer> randIndexs = new ArrayList<Integer>();
+
+			while (listCount < maxIterCount) {
+				randIndex = ThreadLocalRandom.current().nextInt(0, numCrops);
+				
+				if (!Arrays.asList(randIndexs).contains(randIndex) ) {
+					randIndexs.add(randIndex);
+					listCount++;
+					
+				}
+				
+			}
+			
+			
+			Iterator<Integer> iter = randIndexs.iterator(); 
+			
+			Crop crop;
+			int cropIndex;
+			while (iter.hasNext()) {
+				cropIndex = iter.next();
+				crop = farm.getCrop(cropIndex);
+				
+				farm.removeCrop(crop);
+				
+				
+			}
+			
+			
 			
 		}
 		
@@ -63,13 +109,41 @@ public class Event {
 	
 	
 	
-//	public static void main(String[] args) {
-//		
+	public static void main(String[] args) {
+		
 //		Event e = new Event();
 //		
 //		e.checkForEvent();
-//		
-//	}
+		
+		
+		int numCrops = 5;
+		
+		int randIndex;
+		int maxIterCount = numCrops/2;
+		int listCount = 0;
+		
+		ArrayList<Integer> randIndexs = new ArrayList<Integer>();
+
+		while (listCount < maxIterCount) {
+			randIndex = ThreadLocalRandom.current().nextInt(0, numCrops);
+			
+			if (!Arrays.asList(randIndexs).contains(randIndex) ) {
+				randIndexs.add(randIndex);
+				listCount++;
+				
+			}
+			
+			
+		}
+		
+		
+		for (int i = 0; i < randIndexs.size(); i++) {
+			System.out.println(randIndexs.get(i));
+			
+			
+		}
+		
+	}
 	
 	
 }
