@@ -114,7 +114,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void subtractMoney(int amount)
 	{
-		money = money - amount;
+		money -= amount;
 		
 	}
 	

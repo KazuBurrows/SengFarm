@@ -102,8 +102,11 @@ public class Game {
 		currentDay++;
 		resetActions();
 		
-		event.checkForEvent(farm);
-		
+		if (currentDay < gameDuration) {
+			System.out.println("Proceeding to the next day.");
+			printGameStatus();
+			event.checkForEvent(farm);
+		}
 	}
 	
 	
@@ -322,10 +325,7 @@ public class Game {
 					// Play
 				break;
 				
-			case 4:
-				// Browse store
-					// Print what's for sale with quantity and price
-				
+			case 4:													// Browse store
 				farm.printMoney();
 				
 				mode = "browse store";
@@ -347,7 +347,6 @@ public class Game {
 					farm.subtractMoney(item.getPrice());
 					
 				}
-				
 				
 				break;
 				
