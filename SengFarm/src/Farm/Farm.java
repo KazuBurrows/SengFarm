@@ -9,7 +9,9 @@ import Crop.Apple;
 import Crop.Corn;
 import Crop.Crop;
 import InputHandler.InputHandler;
+import Item.FavouriteFood;
 import Item.Fertilizer;
+import Item.Food;
 import Item.Item;
 
 public class Farm extends FarmBonus {
@@ -112,7 +114,7 @@ public class Farm extends FarmBonus {
 	 */
 	public void subtractMoney(int amount)
 	{
-		money -= amount;
+		money = money - amount;
 		
 	}
 	
@@ -201,7 +203,7 @@ public class Farm extends FarmBonus {
 	/*
 	 * 
 	 */
-	public void browseCrops(int gameDuration)
+	public void browseCrops(int currentDay)
 	{
 		if (crops.size() <= 0) {
 			System.out.println("The farm has no crops growing. Go to the store to purchace crops.");
@@ -220,7 +222,7 @@ public class Farm extends FarmBonus {
 			crop = crops.get(i);
 			
 			cName = crop.getName();
-			cHarvestReady = Math.max(0, gameDuration - crop.getHarvestDay());
+			cHarvestReady = Math.max(0, crop.getHarvestDay() - currentDay);
 			
 			
 			System.out.println(String.format(msg, i, cName, cHarvestReady));
@@ -288,12 +290,8 @@ public class Farm extends FarmBonus {
 	
 	public void harvestCrop(Crop crop, int currentDay)
 	{
-		
-		System.out.println("Curretn day = " + currentDay);
-		System.out.println("Harvest day = " + crop.getHarvestDay());
-		
 		String msg;
-		if (crop.getHarvestDay() >= currentDay) {
+		if (crop.getHarvestDay() > currentDay) {
 			msg = "%s is not ready for harvest.";
 			System.out.println(String.format(msg, crop.getName()));
 			
@@ -372,20 +370,38 @@ public class Farm extends FarmBonus {
 	
 	/*
 	 * 
+	 * 
+	 * param browseType					To only return usable items for request e.g tend to crops, return on fertilizer
 	 */
-	public void browseInventory()
+	public ArrayList<Item> browseInventory(String browseType)
 	{
 //		String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
+		ArrayList<String> itemKeys = new ArrayList<String>(); ;
 		String itemNavigation = "%s: %s";
 		
-		ArrayList<String> navOptionList = new ArrayList<String>();
+		ArrayList<Item> navOptionList = new ArrayList<Item>();
+		
+		switch(browseType) {
+		case "tend crop":
+			itemKeys.add("Fertilizer");
+			
+			
+			Item item;
+			for (int i=0; i<items.size(); i++) {
+				item = items.get(i);
+				
+				if (itemKeys.contains(item.getName())) {
+					navOptionList.add(item);
+				}
+			}
+			
+			break;
 		
 		
-		// There is only one item I can print
+		}
 		
 		
-		
-		
+		return navOptionList;
 	}
 	
 	
@@ -468,12 +484,25 @@ public class Farm extends FarmBonus {
 	public static void main(String[] args)
 	{
 		
-//		Farmer fer = new Farmer();
-//		Farm f = new Farm(fer);
-				
+		Farmer farmer = new Farmer();
+		Farm farm = new Farm(farmer);
 		
 		
+		Fertilizer f = new Fertilizer();
+		farm.addItem(f);
 		
+		Food food = new Food();
+		farm.addItem(food);
+		
+		FavouriteFood fav_food = new FavouriteFood();
+		farm.addItem(fav_food);
+		
+		ArrayList<Item> browse_item = farm.browseInventory("tend crop");
+		
+		for (int i=0; i<browse_item.size(); i++) {
+			System.out.println(browse_item.get(i).getName());
+			
+		}
 		
 		
 	}

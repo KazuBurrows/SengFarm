@@ -5,12 +5,12 @@ import Farm.Farm;
 public class AnimalToy extends Item {
 
 	public AnimalToy() {
-		super("Animal's toy", 0, "Some description", "Something");
+		super("Animal's toy", 30, "Some description", "Something");
 		
 	}
 	
 	@Override
-	public void useItem(Farm farm) {
+	public void useItem(Object object) {
 		// Do something
 		
 	}

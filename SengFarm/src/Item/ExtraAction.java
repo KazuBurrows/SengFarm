@@ -6,13 +6,13 @@ import Main.Game;
 public class ExtraAction extends Item {
 
 	public ExtraAction() {		
-		super("Extra action", 0, "Some description", "Something");
+		super("Extra action", 400, "Some description", "Something");
 		
 	}
 	
 	
 	
-	public void useItem(Game game) {
+	public void useItem(Object object) {
 		// Do something
 		
 //		game.addAction();

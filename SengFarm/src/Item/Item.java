@@ -101,7 +101,7 @@ public class Item extends ItemBonus {
 	 * Only for sub-classes to override
 	 */
 	@Override
-	public void useItem(Farm farm) {
+	public void useItem(Object object) {
 		// TODO Auto-generated method stub
 		
 	}

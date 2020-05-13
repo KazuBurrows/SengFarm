@@ -1,5 +1,6 @@
 package Main;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Crop.Apple;
@@ -195,6 +196,7 @@ public class Game {
 	{
 		String mode;
 		String message = "Enter number to select an action.";
+		String msg;
 		String userInput;
 		int navOption;
 		
@@ -223,19 +225,14 @@ public class Game {
 			case 2:
 				// Tend to crops
 				
-					// List crops to tend to
-						// User selects crop
-						// Water crop
-						// or
-						// Use item on crop
-						// or
-						// harvest crop
-				
 				mode = "tend crop";
 				
-				farm.browseCrops(gameDuration);
+				farm.browseCrops(currentDay);
 				int numCrops = farm.getNumCrops();
 				
+				if (numCrops <= 0) {
+					break;
+				}
 				userInput = InputHandler.getSpecialUserInput(mode, message, numCrops);
 				navOption = Integer.parseInt(userInput);
 				
@@ -261,15 +258,17 @@ public class Game {
 						crop.reduceHarvestDay(1);
 						subtractAction();
 						
-						message = "%s was watered and is ready for harvest in %s days.";
-						System.out.println(String.format(message, crop.getName(), crop.getHarvestDay()));
-						message = "You have %s remaining actions left.";
-						System.out.println(String.format(message, totalActions));
+						msg = "%s was watered and is ready for harvest in %s days.";
+						System.out.println(String.format(msg, crop.getName(), Math.max(0, crop.getHarvestDay() - currentDay)));
+						msg = "You have %s remaining actions left.";
+						System.out.println(String.format(msg, totalActions));
 					}
 					
 					break;
 					
 				case 1:												// item
+					System.out.println("In navigation option item(case 1)");
+					
 					if (getTotalActions() <= 0) {
 						System.out.println("You do not have any more actions available. "
 								+ "Proceed to the next day for more actions or purchase an action from the store. ");
@@ -277,46 +276,42 @@ public class Game {
 					} else {
 						mode = "tend crop item";
 						
-						int numItems = farm.getNumItems();
+						ArrayList<Item> inventory = farm.browseInventory("tend crop");
+						int numItems = inventory.size();
+						msg = "%s: %s";
 						
-//						farm.printItems();
-						farm.browseInventory();				// PROBABLY SHOULD JUST PRINT ITEMS THAT CAN BE USED AND EXISTS
-						// only need to print fertilizer
-						// check if fertilizer exists
-						// then print option to use
-						
-						
-						
+						Item item;
+						for (int i=0; i<inventory.size(); i++) {
+							item = inventory.get(i);
+							
+							System.out.println(String.format(msg, i, item.getName()));
+						}
 						
 						userInput = InputHandler.getSpecialUserInput(mode, message, numCrops);
 						navOption = Integer.parseInt(userInput);
 						
+						item = inventory.get(navOption);
+						item.useItem(crop);							// Apply item on crop
+						farm.removeItem(item);
 						
-						
-						
-						// NOT FINISHED
-						
+						msg = "%s has been used on %s and is ready for harvest in %s days.";
+						System.out.println(String.format(msg, item.getName(), crop.getName(), Math.max(0, crop.getHarvestDay() - currentDay)));
+						msg = "You have %s remaining actions left.";
+						System.out.println(String.format(message, totalActions));
 						
 					}
 					
 
 					break;
 					
-				case 2:
-					// harvest
-					
+				case 2:												// harvest
 					farm.harvestCrop(crop, currentDay);
-
 					
 					break;
 				
 				}
 				
-				
-				
-				
-				
-				
+
 				break;
 				
 			case 3:
@@ -331,6 +326,7 @@ public class Game {
 				// Browse store
 					// Print what's for sale with quantity and price
 				
+				farm.printMoney();
 				
 				mode = "browse store";
 				store.printInventory();
@@ -348,6 +344,7 @@ public class Game {
 				} else {
 					farm.addItem(item);
 					System.out.println(String.format("You have purchased one %s.", item.getName()));
+					farm.subtractMoney(item.getPrice());
 					
 				}
 				

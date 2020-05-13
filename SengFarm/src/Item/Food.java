@@ -5,12 +5,12 @@ import Farm.Farm;
 public class Food extends Item {
 
 	public Food() {
-		super("Animal food", 0, "Some description", "Something");
+		super("Animal food", 10, "Some description", "Something");
 		
 	}
 	
 	@Override
-	public void useItem(Farm farm) {
+	public void useItem(Object object) {
 		// Do something
 		System.out.println("This is food.");
 		

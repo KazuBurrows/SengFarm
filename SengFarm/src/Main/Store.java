@@ -20,6 +20,7 @@ public class Store {
 	 */
 	private int[] inventory = {0, 0, 0, 0, 0, 0};
 	private String[] inventoryKeys = {"Fertilizer", "Food", "Favourite food", "Animals toy", "Store coupon", "Extra action card"};
+	private int[] inventoryKeysCost = {20, 10, 16, 30, 50, 400};
 	
 	
 	
@@ -41,15 +42,17 @@ public class Store {
 	 */
 	public void printInventory()
 	{
-		String message = "%d : %s. %d in stock.";
+		String message = "%d: %s. Price is $%d. %d in stock.";
 		String itemName;
 		int itemQuantity;
+		int itemPrice;
 		
 		for (int i=0; i < 6; i++) {
 			itemName = inventoryKeys[i];
 			itemQuantity = inventory[i];
+			itemPrice = inventoryKeysCost[i];
 			
-			System.out.println(String.format(message, i, itemName, itemQuantity));
+			System.out.println(String.format(message, i, itemName, itemPrice, itemQuantity));
 			
 		}
 	}
