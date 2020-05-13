@@ -168,7 +168,7 @@ public class Farm extends FarmBonus {
 	/*
 	 * Crop name harvest day.
 	 */
-	public void printCrops(int gameDuration)
+	public void printCrops(int currentDay)
 	{
 		
 		if (crops.size() > 0) {
@@ -182,8 +182,7 @@ public class Farm extends FarmBonus {
 				crop = itr.next();
 				
 				cName = crop.getName();
-				cHarvestReady = Math.max(0, gameDuration - crop.getHarvestDay());
-				
+				cHarvestReady = Math.max(0, crop.getHarvestDay() - currentDay);
 				
 				System.out.println(String.format(msg, cName, cHarvestReady));
 				
@@ -376,22 +375,26 @@ public class Farm extends FarmBonus {
 	 */
 	public void browseInventory()
 	{
-		String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
+//		String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
 		String itemNavigation = "%s: %s";
 		
-		for (int i = 0; i < items.size(); i++) {
-			
-			System.out.println(String.format(itemNavigation, i, itemKeys[i]));
-			
-		}
+		ArrayList<String> navOptionList = new ArrayList<String>();
+		
+		
+		// There is only one item I can print
+		
+		
 		
 		
 	}
 	
 	
 	
-	/*
-//	 * Get a item object selected by player
+	
+	
+	
+//	/*
+//	 /* Get a item object selected by player
 //	 * 
 //	 * @return			Item selected by the player
 //	 */
@@ -400,7 +403,7 @@ public class Farm extends FarmBonus {
 //		
 //		return items.get();
 //	}
-	
+//	
 	
 	
 	/*

@@ -7,6 +7,7 @@ import Crop.Crop;
 import Farm.Farm;
 import Farm.Farmer;
 import InputHandler.InputHandler;
+import Item.Fertilizer;
 import Item.Item;
 
 public class Game {
@@ -37,6 +38,13 @@ public class Game {
 		
 		Apple a = new Apple(currentDay);
 		farm.addCrop(a);
+		
+		Fertilizer f = new Fertilizer();
+		farm.addItem(f);
+		
+		Fertilizer f2 = new Fertilizer();
+		farm.addItem(f2);
+		
 		
 		runGame();
 	}
@@ -93,7 +101,7 @@ public class Game {
 		currentDay++;
 		resetActions();
 		
-		Event.checkForEvent(farm, );
+		event.checkForEvent(farm);
 		
 	}
 	
@@ -213,13 +221,15 @@ public class Game {
 				break;
 				
 			case 2:
-				// List crops to tend to
-					// User selects crop
-					// Water crop
-					// or
-					// Use item on crop
-					// or
-					// harvest crop
+				// Tend to crops
+				
+					// List crops to tend to
+						// User selects crop
+						// Water crop
+						// or
+						// Use item on crop
+						// or
+						// harvest crop
 				
 				mode = "tend crop";
 				
@@ -242,31 +252,54 @@ public class Game {
 				
 				
 				switch (navOption) {
-				case 0:
-					// water
+				case 0:												// water
+					if (getTotalActions() <= 0) {
+						System.out.println("You do not have any more actions available. "
+								+ "Proceed to the next day for more actions or purchase an action from the store. ");
+						
+					} else {
+						crop.reduceHarvestDay(1);
+						subtractAction();
+						
+						message = "%s was watered and is ready for harvest in %s days.";
+						System.out.println(String.format(message, crop.getName(), crop.getHarvestDay()));
+						message = "You have %s remaining actions left.";
+						System.out.println(String.format(message, totalActions));
+					}
 					
-					crop.reduceHarvestDay(0);
 					break;
 					
-				case 1:
-					// item
-					mode = "tend crop item";
+				case 1:												// item
+					if (getTotalActions() <= 0) {
+						System.out.println("You do not have any more actions available. "
+								+ "Proceed to the next day for more actions or purchase an action from the store. ");
+						
+					} else {
+						mode = "tend crop item";
+						
+						int numItems = farm.getNumItems();
+						
+//						farm.printItems();
+						farm.browseInventory();				// PROBABLY SHOULD JUST PRINT ITEMS THAT CAN BE USED AND EXISTS
+						// only need to print fertilizer
+						// check if fertilizer exists
+						// then print option to use
+						
+						
+						
+						
+						userInput = InputHandler.getSpecialUserInput(mode, message, numCrops);
+						navOption = Integer.parseInt(userInput);
+						
+						
+						
+						
+						// NOT FINISHED
+						
+						
+					}
 					
-					int numItems = farm.getNumItems();
-					
-					farm.printItems();
-					farm.browseInventory();				// PROBABLY SHOULD JUST PRINT ITEMS THAT CAN BE USED AND EXISTS
-					
-					userInput = InputHandler.getSpecialUserInput(mode, message, numCrops);
-					navOption = Integer.parseInt(userInput);
-					
-					
-					// now check if item exists
-					
-					
-					// NOT FINISHED
-					
-					
+
 					break;
 					
 				case 2:
@@ -366,7 +399,7 @@ public class Game {
 				
 			case 1:
 				// Print crop status
-				farm.printCrops(gameDuration);
+				farm.printCrops(currentDay);
 				
 				break;
 				

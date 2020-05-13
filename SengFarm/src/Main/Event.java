@@ -90,6 +90,8 @@ public class Event {
 			// Farm loses one or more animals. The exact number is determined randomly.
 			// Animals on Farm lose happiness
 			
+			
+			
 		}
 		
 	}
@@ -102,6 +104,9 @@ public class Event {
 		
 		if (wonCountyFair) {
 			// Farm gains money. The amount of money is scaled by the number of growing crops and animals on the farm.
+			
+			
+			
 			
 		}
 		
@@ -116,32 +121,32 @@ public class Event {
 //		e.checkForEvent();
 		
 		
-		int numCrops = 5;
-		
-		int randIndex;
-		int maxIterCount = numCrops/2;
-		int listCount = 0;
-		
-		ArrayList<Integer> randIndexs = new ArrayList<Integer>();
-
-		while (listCount < maxIterCount) {
-			randIndex = ThreadLocalRandom.current().nextInt(0, numCrops);
-			
-			if (!Arrays.asList(randIndexs).contains(randIndex) ) {
-				randIndexs.add(randIndex);
-				listCount++;
-				
-			}
-			
-			
-		}
-		
-		
-		for (int i = 0; i < randIndexs.size(); i++) {
-			System.out.println(randIndexs.get(i));
-			
-			
-		}
+//		int numCrops = 5;
+//		
+//		int randIndex;
+//		int maxIterCount = numCrops/2;
+//		int listCount = 0;
+//		
+//		ArrayList<Integer> randIndexs = new ArrayList<Integer>();
+//
+//		while (listCount < maxIterCount) {
+//			randIndex = ThreadLocalRandom.current().nextInt(0, numCrops);
+//			
+//			if (!Arrays.asList(randIndexs).contains(randIndex) ) {
+//				randIndexs.add(randIndex);
+//				listCount++;
+//				
+//			}
+//			
+//			
+//		}
+//		
+//		
+//		for (int i = 0; i < randIndexs.size(); i++) {
+//			System.out.println(randIndexs.get(i));
+//			
+//			
+//		}
 		
 	}
 	
