@@ -3,7 +3,7 @@ package Crop;
 public class Apple extends Crop {
 
 	public Apple(int currentDay) {
-		super("Apple", 0, currentDay + 2, 0, 0);
+		super("Apple", 50, currentDay + 2, 0, 100);
 		
 	}
 

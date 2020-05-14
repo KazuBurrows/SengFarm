@@ -145,11 +145,26 @@ public class InputHandler {
 			
 			
 		case "browse store":
+			if (validNavigationOption(userInput, 2)) {
+				return true;
+			}
+			
+			break;
+			
+		case "browse items":
 			if (validNavigationOption(userInput, 5)) {
 				return true;
 			}
 			
 			break;
+			
+		case "browse crops":
+			if (validNavigationOption(userInput, 3)) {
+				return true;
+			}
+			
+			break;
+			
 		}
 		
 		
@@ -396,8 +411,16 @@ public class InputHandler {
 			break;
 			
 			
+		case "browse store":
+			String browseItem = "%s: Browse items.";
+			String browseCrop = "%s: Browse crops.";
+			String browseAnimal = "%s: Browse animals.";
 			
+			userOptions.add(browseItem);
+			userOptions.add(browseCrop);
+			userOptions.add(browseAnimal);
 			
+			break;
 			
 		}
 		

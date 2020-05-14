@@ -2,8 +2,8 @@ package Crop;
 
 public class Corn extends Crop {
 
-	public Corn() {
-		super("Corn", 0, 0, 0, 0);
+	public Corn(int currentDay) {
+		super("Corn", 30, currentDay + 4, 0, 80);
 		
 	}
 

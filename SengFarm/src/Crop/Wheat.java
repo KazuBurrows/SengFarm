@@ -2,8 +2,8 @@ package Crop;
 
 public class Wheat extends Crop {
 
-	public Wheat() {
-		super("Wheat", 0, 0, 0, 0);
+	public Wheat(int currentDay) {
+		super("Wheat", 40, currentDay + 4, 0, 110);
 		
 	}
 

@@ -35,7 +35,8 @@ public class Game {
 		farmer = new Farmer();
 		farm = new Farm(farmer);
 		store = new Store();
-		event = new Event();
+//		event = new Event();
+		
 		
 		Apple a = new Apple(currentDay);
 		farm.addCrop(a);
@@ -327,26 +328,13 @@ public class Game {
 				
 			case 4:													// Browse store
 				farm.printMoney();
-				
 				mode = "browse store";
-				store.printInventory();
 				
+				InputHandler.printNavigationOption(mode);
 				userInput = InputHandler.getUserInput(mode, message);
 				navOption = Integer.parseInt(userInput);
 				
-				
-				// Check if item can be bought
-				Item item = store.purchaseItem(navOption, farm.getMoney());
-				
-				if (item == null) {
-					System.out.println("Could not purchase item because not enough money to purchase item or item is not in stock.");
-					
-				} else {
-					farm.addItem(item);
-					System.out.println(String.format("You have purchased one %s.", item.getName()));
-					farm.subtractMoney(item.getPrice());
-					
-				}
+				handleAction(mode, navOption);
 				
 				break;
 				
@@ -411,6 +399,65 @@ public class Game {
 				
 				break;
 			
+			}
+			
+		}
+		
+		
+		if (actionType == "browse store") {
+			switch(option) {
+			case 0:				// Browse items
+				mode = "browse items";
+				store.printItemInventory();
+				
+				userInput = InputHandler.getUserInput(mode, message);
+				navOption = Integer.parseInt(userInput);
+				
+				
+				// Check if item can be bought
+				Item item = store.purchaseItem(navOption, farm.getMoney());
+				
+				if (item == null) {
+					System.out.println("Could not purchase item because not enough money to purchase item or item is not in stock.");
+					
+				} else {
+					farm.addItem(item);
+					System.out.println(String.format("You have purchased one %s.", item.getName()));
+					farm.subtractMoney(item.getPrice());
+					
+				}
+				
+				break;
+				
+			case 1:				// Browse crops
+				mode = "browse crops";
+				store.printCropInventory();
+				
+				userInput = InputHandler.getUserInput(mode, message);
+				navOption = Integer.parseInt(userInput);
+				
+				
+				// Check if item can be bought
+				Crop crop = store.purchaseCrop(navOption, farm.getMoney(), getCurrentDay());
+				
+				if (crop == null) {
+					System.out.println("Could not purchase item because not enough money to purchase item or item is not in stock.");
+					
+				} else {
+					farm.addCrop(crop);
+					System.out.println(String.format("You have purchased one %s.", crop.getName()));
+					farm.subtractMoney(crop.getPrice());
+					
+				}
+				
+				
+				break;
+				
+			case 2:				// Browse animals
+				
+				break;
+				
+				
 			}
 			
 		}

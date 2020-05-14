@@ -1,4 +1,9 @@
 package Main;
+import Crop.Apple;
+import Crop.Corn;
+import Crop.Crop;
+import Crop.Sunflower;
+import Crop.Wheat;
 import Item.AnimalToy;
 import Item.ExtraAction;
 import Item.FavouriteFood;
@@ -18,14 +23,19 @@ public class Store {
 	 * index 4 : StoreCoupon
 	 * index 5 : ExtraAction
 	 */
-	private int[] inventory = {0, 0, 0, 0, 0, 0};
-	private String[] inventoryKeys = {"Fertilizer", "Food", "Favourite food", "Animals toy", "Store coupon", "Extra action card"};
-	private int[] inventoryKeysCost = {20, 10, 16, 30, 50, 400};
+	private int[] itemInventory = {0, 0, 0, 0, 0, 0};
+	private String[] itemInventoryKeys = {"Fertilizer", "Food", "Favourite food", "Animals toy", "Store coupon", "Extra action card"};
+	private int[] itemInventoryKeysCost = {20, 10, 16, 30, 50, 400};
+	
+	
+	private int[] cropInventory = {0, 0, 0, 0};
+	private String[] cropInventoryKeys = {"Apple", "Corn", "Sunflower", "Wheat"};
+	private int[] cropInventoryKeysCost = {50, 30, 20, 40};
 	
 	
 	
 	/*
-	 * Constructor. Populates the inventory on initialization.
+	 * Constructor. Populates the itemInventory on initialization.
 	 */
 	public Store()
 	{
@@ -38,21 +48,39 @@ public class Store {
 	
 	
 	/*
-	 * Prints to the user the quantities of each item in the inventory and how to select the item.
+	 * Prints to the user the quantities of each item in the itemInventory and how to select the item.
 	 */
-	public void printInventory()
+	public void printItemInventory()
 	{
 		String message = "%d: %s. Price is $%d. %d in stock.";
 		String itemName;
 		int itemQuantity;
 		int itemPrice;
 		
-		for (int i=0; i < 6; i++) {
-			itemName = inventoryKeys[i];
-			itemQuantity = inventory[i];
-			itemPrice = inventoryKeysCost[i];
+		for (int i=0; i < itemInventoryKeys.length; i++) {
+			itemName = itemInventoryKeys[i];
+			itemQuantity = itemInventory[i];
+			itemPrice = itemInventoryKeysCost[i];
 			
 			System.out.println(String.format(message, i, itemName, itemPrice, itemQuantity));
+			
+		}
+	}
+	
+	
+	public void printCropInventory()
+	{
+		String message = "%d: %s. Price is $%d. %d in stock.";
+		String cropName;
+		int cropQuantity;
+		int cropPrice;
+		
+		for (int i=0; i < cropInventoryKeys.length; i++) {
+			cropName = cropInventoryKeys[i];
+			cropQuantity = cropInventory[i];
+			cropPrice = cropInventoryKeysCost[i];
+			
+			System.out.println(String.format(message, i, cropName, cropPrice, cropQuantity));
 			
 		}
 	}
@@ -63,18 +91,19 @@ public class Store {
 	// Unless I find another way, like successful purchase, and unsuccessful purchase. Then some validation.
 	
 	/*
-	 * Verify input, then reduces the quantity of an item in the inventory by one.
+	 * Verify input, then reduces the quantity of an item in the itemInventory by one.
 	 */
 	public Item purchaseItem(int itemIndex, int playerMoney)
 	{
 		//Give options when item is selected, e.g get item description, or cancel purchase.
+		String mode = "item";
 		
 		switch (itemIndex) { 
         case 0:
             Fertilizer fertilizer = new Fertilizer();
             
-            if (canPurchase(itemIndex, fertilizer, playerMoney)) {
-            	inventory[itemIndex]--;
+            if (canPurchase(itemIndex, fertilizer, playerMoney, mode)) {
+            	itemInventory[itemIndex]--;
             	
             	return fertilizer;
             }
@@ -84,8 +113,8 @@ public class Store {
         case 1:
         	Food food = new Food();
         	
-        	if (canPurchase(itemIndex, food, playerMoney)) {
-            	inventory[itemIndex]--;
+        	if (canPurchase(itemIndex, food, playerMoney, mode)) {
+            	itemInventory[itemIndex]--;
             	
             	return food;
             }
@@ -95,8 +124,8 @@ public class Store {
         case 2:
         	FavouriteFood fav_food = new FavouriteFood();
         	
-        	if (canPurchase(itemIndex, fav_food, playerMoney)) {
-            	inventory[itemIndex]--;
+        	if (canPurchase(itemIndex, fav_food, playerMoney, mode)) {
+            	itemInventory[itemIndex]--;
             	
             	return fav_food;
             }
@@ -106,8 +135,8 @@ public class Store {
         case 3:
         	AnimalToy toy = new AnimalToy();
         	
-        	if (canPurchase(itemIndex, toy, playerMoney)) {
-            	inventory[itemIndex]--;
+        	if (canPurchase(itemIndex, toy, playerMoney, mode)) {
+            	itemInventory[itemIndex]--;
             	
             	return toy;
             }
@@ -116,13 +145,21 @@ public class Store {
             
         case 4:
         	StoreCoupon coupon = new StoreCoupon();
-            return coupon;
+        	
+        	if (canPurchase(itemIndex, coupon, playerMoney, mode)) {
+            	itemInventory[itemIndex]--;
+            	
+            	return coupon;
+            }
+        	
+            return null;
+            
             
         case 5:
         	ExtraAction extra_action = new ExtraAction();
         	
-        	if (canPurchase(itemIndex, extra_action, playerMoney)) {
-            	inventory[itemIndex]--;
+        	if (canPurchase(itemIndex, extra_action, playerMoney, mode)) {
+            	itemInventory[itemIndex]--;
             	
             	return extra_action;
             }
@@ -136,19 +173,106 @@ public class Store {
 	}
 	
 	
-	
-	
-	private boolean canPurchase(int itemIndex, Item item, int playerMoney)
+	public Crop purchaseCrop(int cropIndex, int playerMoney, int currentDay)
 	{
-		if (inventory[itemIndex] < 0) {
-			return false;
+		//Give options when item is selected, e.g get item description, or cancel purchase.
+		String mode = "crop";
+		
+		switch (cropIndex) { 
+        case 0:
+            Apple apple = new Apple(currentDay);
+            
+            if (canPurchase(cropIndex, apple, playerMoney, mode)) {
+            	itemInventory[cropIndex]--;
+            	
+            	return apple;
+            }
+            
+            return null;
+        	
+        case 1:
+        	Corn corn = new Corn(currentDay);
+        	
+        	if (canPurchase(cropIndex, corn, playerMoney, mode)) {
+            	itemInventory[cropIndex]--;
+            	
+            	return corn;
+            }
+            
+            return null;
+            
+        case 2:
+        	Sunflower sunflower = new Sunflower(currentDay);
+        	
+        	if (canPurchase(cropIndex, sunflower, playerMoney, mode)) {
+            	itemInventory[cropIndex]--;
+            	
+            	return sunflower;
+            }
+            
+            return null;
+            
+        case 3:
+        	Wheat wheat = new Wheat(currentDay);
+        	
+        	if (canPurchase(cropIndex, wheat, playerMoney, mode)) {
+            	itemInventory[cropIndex]--;
+            	
+            	return wheat;
+            }
+            
+            return null;
+            
+            
+        }
+		
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	private boolean canPurchase(int itemIndex, Object obj, int playerMoney, String purchaseType)
+	{
+		switch(purchaseType) {
+		case "item":
+			if (itemInventory[itemIndex] < 0) {
+				return false;
+			}
+			
+			if (((Item) obj).getPrice() > playerMoney) {
+				return false;
+			}
+			
+			break;
+			
+		case "crop":
+			if (cropInventory[itemIndex] < 0) {
+				return false;
+			}
+			
+			if (((Crop) obj).getPrice() > playerMoney) {
+				return false;
+			}
+			
+			break;
+			
+			
+		case "animal":
+//			if (animalInventory[itemIndex] < 0) {
+//				return false;
+//			}
+//			
+//			if (((Animal) obj).getPrice() > playerMoney) {
+//				return false;
+//			}
+			
+			break;
 		}
 		
-		if (item.getPrice() > playerMoney) {
-			return false;
-		}
-		
-		
+
 		return true;
 	}
 	
@@ -156,18 +280,27 @@ public class Store {
 	
 	
 	/*
-	 * Populates the inventory by a random quantity for each item.
+	 * Populates the itemInventory by a random quantity for each item.
 	 */
 	private void populateInventory()
 	{
 		int itemQuantity;
+		int cropQuantity;
 		
-		for (int i=0; i < 6; i++) {
-			itemQuantity = (int)(Math.random()*6);
+		int maxQuantity = 6;
+		
+		for (int i=0; i < itemInventoryKeys.length; i++) {
+			itemQuantity = (int)(Math.random()*maxQuantity);
+			itemInventory[i] = itemQuantity;
 			
-			inventory[i] = itemQuantity;
+		}
+		
+		maxQuantity = 20;
+		for (int i=0; i < cropInventoryKeys.length; i++) {
+			cropQuantity = (int)(Math.random()*maxQuantity);
+			cropInventory[i] = cropQuantity;
 			
-		}	
+		}
 	}
 	
 	
