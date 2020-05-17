@@ -1,4 +1,5 @@
 package Main;
+import Animal.Animal;
 import Crop.Apple;
 import Crop.Corn;
 import Crop.Crop;
@@ -31,6 +32,12 @@ public class Store {
 	private int[] cropInventory = {0, 0, 0, 0};
 	private String[] cropInventoryKeys = {"Apple", "Corn", "Sunflower", "Wheat"};
 	private int[] cropInventoryKeysCost = {50, 30, 20, 40};
+	
+	
+	
+	private int[] animalInventory = {0, 0, 0, 0};
+	private String[] animalInventoryKeys = {"Cow", "Rabbit", "Horse"};
+	private int[] animalInventoryKeysCost = {80, 30, 30};
 	
 	
 	
@@ -84,6 +91,28 @@ public class Store {
 			
 		}
 	}
+	
+	
+	
+	public void printAnimalInventory()
+	{
+		String message = "%d: %s. Price is $%d. %d in stock.";
+		String animal_name;
+		int animal_quantity;
+		int animal_price;
+		
+		for (int i=0; i < animalInventoryKeysCost.length; i++) {
+			animal_name = animalInventoryKeys[i];
+			animal_quantity = animalInventory[i];
+			animal_price = animalInventoryKeysCost[i];
+			
+			System.out.println(String.format(message, i, animal_name, animal_price, animal_quantity));
+			
+		}
+	}
+	
+	
+	
 	
 	
 	
@@ -234,6 +263,19 @@ public class Store {
 	
 	
 	
+	
+	public Animal purchaseAnimal()
+	{
+		
+		
+		
+		
+		return null;
+	}
+	
+	
+	
+	
 	private boolean canPurchase(int itemIndex, Object obj, int playerMoney, String purchaseType)
 	{
 		switch(purchaseType) {
@@ -261,13 +303,13 @@ public class Store {
 			
 			
 		case "animal":
-//			if (animalInventory[itemIndex] < 0) {
-//				return false;
-//			}
-//			
-//			if (((Animal) obj).getPrice() > playerMoney) {
-//				return false;
-//			}
+			if (animalInventory[itemIndex] < 0) {
+				return false;
+			}
+			
+			if (((Animal) obj).getPrice() > playerMoney) {
+				return false;
+			}
 			
 			break;
 		}
@@ -286,38 +328,55 @@ public class Store {
 	{
 		int itemQuantity;
 		int cropQuantity;
+		int animalQuantity;
 		
-		int maxQuantity = 6;
+		int minQuantity;
+		int maxQuantity;
 		
+		
+		minQuantity = 1;
+		maxQuantity = 6 - minQuantity;
 		for (int i=0; i < itemInventoryKeys.length; i++) {
-			itemQuantity = (int)(Math.random()*maxQuantity);
+			itemQuantity = minQuantity + (int)(Math.random() * maxQuantity);
 			itemInventory[i] = itemQuantity;
 			
 		}
 		
+		
 		maxQuantity = 20;
 		for (int i=0; i < cropInventoryKeys.length; i++) {
-			cropQuantity = (int)(Math.random()*maxQuantity);
+			cropQuantity = (int)(Math.random() * maxQuantity);
 			cropInventory[i] = cropQuantity;
 			
 		}
+		
+		
+		minQuantity = 10;
+		maxQuantity = 40 - minQuantity;
+		for (int i=0; i < animalInventoryKeys.length; i++) {
+			animalQuantity = minQuantity + (int)(Math.random() * maxQuantity);
+			animalInventory[i] = animalQuantity;
+			
+		}
+		
+		
 	}
 	
 	
 	
 	
 //	public static void main(String[] args) {
-//		
-////		System.out.println((Math.random()*10));
-////		Store s = new Store();
-//		
-////		s.getItems();
-//		
+		
+//		System.out.println((int)(Math.random()* 11));
+//		Store s = new Store();
+		
+//		s.getItems();
+		
 //		Fertilizer t = new Fertilizer();
 //		t.testMethod();
-//		
+		
 //	}
-//	
+	
 	
 	
 }

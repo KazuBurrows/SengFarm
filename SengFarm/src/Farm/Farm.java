@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import Animal.Animal;
 import Crop.Apple;
 import Crop.Corn;
 import Crop.Crop;
@@ -20,10 +21,10 @@ public class Farm extends FarmBonus {
 	private Farmer farmer;
 	private int money;
 	
-//	private ArrayList<Animal> animals = new ArrayList<Animal>();				// Animals on farm
 	private ArrayList<Crop> crops = new ArrayList<Crop>();						// Growing crops on farm
 	private ArrayList<Item> items = new ArrayList<Item>();						// All items owned
-	
+	private ArrayList<Animal> animals = new ArrayList<Animal>();				// Animals on farm
+
 	
 	
 	/*
@@ -122,7 +123,30 @@ public class Farm extends FarmBonus {
 	
 	public void printAnimals()
 	{
-	
+		
+		if (animals.size() > 0) {
+			Iterator<Animal> itr = animals.iterator();
+			String msg = "%s has %s health and %s happiness.";
+			
+			Animal animal;
+			String animal_name;
+			int animal_health;
+			int animal_happiness;
+			while (itr.hasNext()) {
+				animal = itr.next();
+				
+				animal_name = animal.getName();
+				animal_health = animal.getHealth();
+				animal_happiness = animal.getHappiness();
+				
+				System.out.println(String.format(msg, animal_name, animal_health, animal_happiness));
+				
+			}
+			
+		} else {
+			System.out.println("The farm has no animals. Go to the store to purchace some animals.");
+			
+		}
 		
 	}
 	
