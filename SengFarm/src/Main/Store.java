@@ -1,5 +1,8 @@
 package Main;
 import Animal.Animal;
+import Animal.Cow;
+import Animal.Horse;
+import Animal.Rabbit;
 import Crop.Apple;
 import Crop.Corn;
 import Crop.Crop;
@@ -7,10 +10,10 @@ import Crop.Sunflower;
 import Crop.Wheat;
 import Item.AnimalToy;
 import Item.ExtraAction;
-import Item.FavouriteFood;
 import Item.Fertilizer;
 import Item.Food;
 import Item.Item;
+import Item.SpecialFood;
 import Item.StoreCoupon;
 
 public class Store {
@@ -19,13 +22,13 @@ public class Store {
 	/*
 	 * index 0 : Fertilizer
 	 * index 1 : Food
-	 * index 2 : FavouriteFood
+	 * index 2 : SpecialFood
 	 * index 3 : AnimalToy
 	 * index 4 : StoreCoupon
 	 * index 5 : ExtraAction
 	 */
 	private int[] itemInventory = {0, 0, 0, 0, 0, 0};
-	private String[] itemInventoryKeys = {"Fertilizer", "Food", "Favourite food", "Animals toy", "Store coupon", "Extra action card"};
+	private String[] itemInventoryKeys = {"Fertilizer", "Food", "Special food", "Animals toy", "Store coupon", "Extra action card"};
 	private int[] itemInventoryKeysCost = {20, 10, 16, 30, 50, 400};
 	
 	
@@ -35,7 +38,7 @@ public class Store {
 	
 	
 	
-	private int[] animalInventory = {0, 0, 0, 0};
+	private int[] animalInventory = {0, 0, 0};
 	private String[] animalInventoryKeys = {"Cow", "Rabbit", "Horse"};
 	private int[] animalInventoryKeysCost = {80, 30, 30};
 	
@@ -151,12 +154,12 @@ public class Store {
             return null;
             
         case 2:
-        	FavouriteFood fav_food = new FavouriteFood();
+        	SpecialFood special_food = new SpecialFood();
         	
-        	if (canPurchase(itemIndex, fav_food, playerMoney, mode)) {
+        	if (canPurchase(itemIndex, special_food, playerMoney, mode)) {
             	itemInventory[itemIndex]--;
             	
-            	return fav_food;
+            	return special_food;
             }
         	
             return null;
@@ -264,9 +267,48 @@ public class Store {
 	
 	
 	
-	public Animal purchaseAnimal()
+	public Animal purchaseAnimal(int animalIndex, int playerMoney)
 	{
+		String mode = "animal";
 		
+		switch (animalIndex) {
+		case 0:
+			Cow cow = new Cow();
+			
+			if (canPurchase(animalIndex, cow, playerMoney, mode)) {
+            	itemInventory[animalIndex]--;
+            	
+            	return cow;
+            }
+            
+            return null;
+			
+			
+		case 1:
+			Rabbit rabbit = new Rabbit();
+			
+			if (canPurchase(animalIndex, rabbit, playerMoney, mode)) {
+            	itemInventory[animalIndex]--;
+            	
+            	return rabbit;
+            }
+			
+			break;
+			
+		case 2:
+			Horse horse = new Horse();
+			
+			if (canPurchase(animalIndex, horse, playerMoney, mode)) {
+            	itemInventory[animalIndex]--;
+            	
+            	return horse;
+            }
+			
+			break;
+			
+		
+		
+		}
 		
 		
 		

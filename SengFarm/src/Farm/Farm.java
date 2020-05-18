@@ -10,10 +10,10 @@ import Crop.Apple;
 import Crop.Corn;
 import Crop.Crop;
 import InputHandler.InputHandler;
-import Item.FavouriteFood;
 import Item.Fertilizer;
 import Item.Food;
 import Item.Item;
+import Item.SpecialFood;
 
 public class Farm extends FarmBonus {
 	
@@ -151,43 +151,93 @@ public class Farm extends FarmBonus {
 	}
 	
 	
-//	
-//	/*
-//	 * Get the number of animals on the farm
-//	 * 
-//	 * @return		Total number of animals
-//	 */
-//	public int getNumAnimals()
-//	{
-//		
-//		return animals.size();
-//	}
-//	
-//	
-//	
-//	/*
-//	 * Append a new animal to animals arrayList
-//	 * 
-//	 * @param animal		Animal object being appended
-//	 */
-//	public void addAnimal(Animal animal)
-//	{
-//		animals.add(animal);
-//		
-//	}
-//	
-//	
-//	
-//	/*
-//	 * Pop an animal off the animals arrayList
-//	 * 
-//	 * @param animal		Animal object being removed
-//	 */
-//	public void removeAnimal(Animal animal)
-//	{
-//		animals.remove(animal);
-//		
-//	}
+	
+	
+	/*
+	 * 
+	 */
+	public void browseAnimals()
+	{
+		if (animals.size() <= 0) {
+			System.out.println("The farm has no animals. Go to the store to purchace some animals.");
+			
+			return;
+		}
+		
+		
+		String msg = "%s: %s has %s health and %s happiness.";
+		
+		Animal animal;
+		String aName;
+		int aHealth;
+		int aHappiness;
+		
+		for (int i = 0; i < animals.size(); i++) {
+			animal = animals.get(i);
+			
+			aName = animal.getName();
+			aHealth = animal.getHealth();
+			aHappiness = animal.getHappiness();
+			
+			
+			System.out.println(String.format(msg, i, aName, aHealth, aHappiness));
+			
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	/*
+	 * Get the number of animals on the farm
+	 * 
+	 * @return		Total number of animals
+	 */
+	public int getNumAnimals()
+	{
+		
+		return animals.size();
+	}
+	
+	
+	
+	public Animal getAnimal(int index)
+	{
+		
+		return animals.get(index);
+	}
+	
+	
+	
+	
+	/*
+	 * Append a new animal to animals arrayList
+	 * 
+	 * @param animal		Animal object being appended
+	 */
+	public void addAnimal(Animal animal)
+	{
+		animals.add(animal);
+		
+	}
+	
+	
+	
+	/*
+	 * Pop an animal off the animals arrayList
+	 * 
+	 * @param animal		Animal object being removed
+	 */
+	public void removeAnimal(Animal animal)
+	{
+		animals.remove(animal);
+		
+	}
 	
 	
 	
@@ -341,6 +391,25 @@ public class Farm extends FarmBonus {
 	
 	
 	
+	public int getSpecialNumItems(String item_name)
+	{
+		int count = 0;
+		
+		Iterator<Item> itr = items.iterator();
+		Item item;
+		while (itr.hasNext()) {
+			item = itr.next();
+			
+			if (item.getName() == item_name) {
+				count++;
+			}
+		}
+		
+		
+		return count;
+	}
+	
+	
 	
 	
 	/*
@@ -350,7 +419,7 @@ public class Farm extends FarmBonus {
 	{
 		
 		if (items.size() > 0) {
-			String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
+			String[] itemKeys = {"Fertilizer", "Animal food", "Animal's special food", "Animal toy", "Extra game action", "Store Coupon"};
 			int[] itemCount = new int[6];
 			
 			Iterator<Item> itr = items.iterator();
@@ -399,7 +468,7 @@ public class Farm extends FarmBonus {
 	 */
 	public ArrayList<Item> browseInventory(String browseType)
 	{
-//		String[] itemKeys = {"Fertilizer", "Animal food", "Animal's favourite food", "Animal toy", "Extra game action", "Store Coupon"};
+//		String[] itemKeys = {"Fertilizer", "Animal food", "Animal's special food", "Animal toy", "Extra game action", "Store Coupon"};
 		ArrayList<String> itemKeys = new ArrayList<String>(); ;
 		String itemNavigation = "%s: %s";
 		
@@ -433,17 +502,28 @@ public class Farm extends FarmBonus {
 	
 	
 	
-//	/*
-//	 /* Get a item object selected by player
-//	 * 
-//	 * @return			Item selected by the player
-//	 */
-//	public Item getItem()
-//	{
-//		
-//		return items.get();
-//	}
-//	
+	/*
+	 /* Get a item object selected by player
+	 * 
+	 * @return			Item selected by the player
+	 */
+	public Item getItem(String item_type)
+	{
+		
+		Item item;
+		Iterator<Item> itr = items.iterator();
+		
+		while (itr.hasNext()) {
+			item = itr.next();
+			if (item.getName() == item_type) {
+				return item;
+			}
+			
+		}
+		
+		return null;
+	}
+	
 	
 	
 	/*
@@ -518,7 +598,7 @@ public class Farm extends FarmBonus {
 		Food food = new Food();
 		farm.addItem(food);
 		
-		FavouriteFood fav_food = new FavouriteFood();
+		SpecialFood fav_food = new SpecialFood();
 		farm.addItem(fav_food);
 		
 		ArrayList<Item> browse_item = farm.browseInventory("tend crop");

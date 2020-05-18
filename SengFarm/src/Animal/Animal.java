@@ -54,13 +54,9 @@ public class Animal {
 			System.out.println("No change was made to animals health.");
 			return;
 			
-		} else if ((health + amount) > 100) {
-			health = 100;
-			
-		} else {
-			health += amount;
-					
 		}
+		
+		health = Math.min(100, health + amount);
 		
 		String msg = "%s's health is now %s.";
 		System.out.println(String.format(msg, name, health));
@@ -76,13 +72,9 @@ public class Animal {
 			System.out.println("No change was made to animals health.");
 			return;
 			
-		} else if ((health - amount) < 0) {
-			health = 0;
-			
-		} else {
-			health -= amount;
-					
 		}
+		
+		health = Math.max(0, health - amount);
 		
 		String msg = "%s's health is now %s.";
 		System.out.println(String.format(msg, name, health));
@@ -107,13 +99,9 @@ public class Animal {
 			System.out.println("No change was made to animals happiness.");
 			return;
 			
-		} else if ((happiness + amount) > 100) {
-			happiness = 100;
-			
-		} else {
-			happiness += happiness;
-					
 		}
+		
+		happiness = Math.min(100, happiness + amount);
 		
 		String msg = "%s's happiness is now %s.";
 		System.out.println(String.format(msg, name, happiness));
@@ -129,13 +117,9 @@ public class Animal {
 			System.out.println("No change was made to animals happiness.");
 			return;
 			
-		} else if ((happiness - amount) < 0) {
-			happiness = 0;
-			
-		} else {
-			happiness -= amount;
-					
 		}
+		
+		happiness = Math.max(0, happiness - amount);
 		
 		String msg = "%s's happiness is now %s.";
 		System.out.println(String.format(msg, name, happiness));
@@ -146,17 +130,25 @@ public class Animal {
 	
 	
 	
-	public void tendAnimal()
+	public void playAnimal(int health_amount, int happiness_amount)
 	{
+		addHealth(health_amount);
+		addHappiness(happiness_amount);
 		
+		String msg = "%s's health is now %s and happiness is now %s.";
+		System.out.println(String.format(msg, name, health, happiness));
 		
 	}
 	
 	
 	
-	public void feedAnimal(Item item)
+	public void feedAnimal(int health_amount, int happiness_amount)
 	{
+		addHealth(health_amount);
+		addHappiness(happiness_amount);
 		
+		String msg = "%s has %s health and %s happiness.";
+		System.out.println(String.format(msg, name, health, happiness));
 		
 	}
 	

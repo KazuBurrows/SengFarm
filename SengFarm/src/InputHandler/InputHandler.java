@@ -143,6 +143,13 @@ public class InputHandler {
 			
 			break;
 			
+		case "select tend animal":
+			if (validNavigationOption(userInput, 3)) {
+				return true;
+			}
+			
+			break;
+			
 			
 		case "browse store":
 			if (validNavigationOption(userInput, 2)) {
@@ -165,9 +172,15 @@ public class InputHandler {
 			
 			break;
 			
+		case "browse animals":
+			if (validNavigationOption(userInput, 2)) {
+				return true;
+			}
+			
+			break;
 		}
 		
-		
+		System.out.println("Please select a valid number.");
 		return false;
 	}
 	
@@ -408,6 +421,20 @@ public class InputHandler {
 			userOptions.add(useItem);
 			userOptions.add(harvest);
 		
+			break;
+			
+			
+		case "select tend animal":
+			String useRegFood = "%s: Feed regular food.";
+			String useSpecFood = "%s: Feed special food.";
+			String play = "%s: Play with animal.";
+			String playToy = "%s: Play with animal with toy.";
+			
+			userOptions.add(useRegFood);
+			userOptions.add(useSpecFood);
+			userOptions.add(play);
+			userOptions.add(playToy);
+			
 			break;
 			
 			

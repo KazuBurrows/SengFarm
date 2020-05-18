@@ -77,7 +77,7 @@ public class Item extends ItemBonus {
 		else if (item instanceof Food) {
 			return 1;
 		}
-		else if (item instanceof FavouriteFood) {
+		else if (item instanceof SpecialFood) {
 			return 2;
 		}
 		else if (item instanceof AnimalToy) {

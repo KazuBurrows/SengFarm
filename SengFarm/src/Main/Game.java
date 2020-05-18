@@ -3,6 +3,7 @@ package Main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Animal.Animal;
 import Crop.Apple;
 import Crop.Crop;
 import Farm.Farm;
@@ -218,16 +219,14 @@ public class Game {
 				
 				break;
 				
-			case 1:
-				// Tend to farm
+			case 1:													// Tend to farm
 				mode = "tend farm";
 				
 				
 				
 				break;
 				
-			case 2:
-				// Tend to crops
+			case 2:													// Tend to crops
 				
 				mode = "tend crop";
 				
@@ -235,6 +234,8 @@ public class Game {
 				int numCrops = farm.getNumCrops();
 				
 				if (numCrops <= 0) {
+					System.out.println("There are no crops to tend to. Visit the store to purchase crops.");
+					
 					break;
 				}
 				userInput = InputHandler.getSpecialUserInput(mode, message, numCrops);
@@ -253,7 +254,7 @@ public class Game {
 				
 				
 				switch (navOption) {
-				case 0:												// water
+				case 0:							// water
 					if (getTotalActions() <= 0) {
 						System.out.println("You do not have any more actions available. "
 								+ "Proceed to the next day for more actions or purchase an action from the store. ");
@@ -270,7 +271,7 @@ public class Game {
 					
 					break;
 					
-				case 1:												// item
+				case 1:							// item
 					System.out.println("In navigation option item(case 1)");
 					
 					if (getTotalActions() <= 0) {
@@ -318,12 +319,131 @@ public class Game {
 
 				break;
 				
-			case 3:
+			case 3:													// Tend animals
 				// List animals to tend to
 					// User selects animal
 					// Feed
 					// or
 					// Play
+				
+				mode = "tend animal";
+				
+				farm.browseAnimals();
+				int numAnimals = farm.getNumAnimals();
+				
+				if (numAnimals <= 0) {
+					break;
+				}
+				
+				userInput = InputHandler.getSpecialUserInput(mode, message, numAnimals);
+				navOption = Integer.parseInt(userInput);
+				
+				Animal animal = farm.getAnimal(navOption);
+				
+				// Options Feed with food, Feed with special food, play, play with toy
+				mode = "select tend animal";
+				
+				InputHandler.printNavigationOption(mode);
+				
+				userInput = InputHandler.getUserInput(mode, message);
+				navOption = Integer.parseInt(userInput);
+				
+				String item_type;
+				switch (navOption) {
+				case 0:			// Regular food
+					
+					// Check if food exists in items and same for the other options loop back to case 3 if none exists
+					
+					item_type = "Animal food";
+					if (farm.getSpecialNumItems(item_type) > 0) {
+						
+						// get item
+						Item item = farm.getItem(item_type);
+						
+						if (item == null) {
+							System.out.println("Don't really need this check.");
+							
+						} else {
+							item.useItem(animal);
+						}
+						
+						
+						
+						
+					} else {
+						System.out.println("There are no regular food items in your inventory.");
+						
+					}
+					
+					
+					
+					
+					break;
+					
+				case 1:			// Special food
+					
+					item_type = "Special animal food";
+					if (farm.getSpecialNumItems(item_type) > 0) {
+						
+						
+						// get item
+						Item item = farm.getItem(item_type);
+						
+						if (item == null) {
+							System.out.println("Don't really need this check.");
+							
+						} else {
+							item.useItem(animal);
+						}
+						
+						
+						
+						
+					} else {
+						System.out.println("There are no special food items in your inventory.");
+						
+					}
+					
+					
+					break;
+					
+				case 2:			// Play
+					animal.addHappiness(10);
+					
+					break;
+					
+				case 3:			// Play with toy
+					
+					item_type = "Animal's toy";
+					if (farm.getSpecialNumItems(item_type) > 0) {
+						
+						
+						// get item
+						Item item = farm.getItem(item_type);
+						
+						if (item == null) {
+							System.out.println("Don't really need this check.");
+							
+						} else {
+							item.useItem(animal);
+						}
+						
+						
+						
+					} else {
+						System.out.println("There are no animal toy items in your inventory.");
+						
+					}
+					
+					
+					
+					break;
+				
+				
+				}
+				
+				
+				
 				break;
 				
 			case 4:													// Browse store
@@ -454,6 +574,23 @@ public class Game {
 				break;
 				
 			case 2:				// Browse animals
+				mode = "browse animals";
+				store.printAnimalInventory();
+				
+				userInput = InputHandler.getUserInput(mode, message);
+				navOption = Integer.parseInt(userInput);
+				
+				Animal animal = store.purchaseAnimal(navOption, farm.getMoney());
+				
+				if (animal == null) {
+					System.out.println("Could not purchase animal because not enough money to purchase animal or animal is not in stock.");
+					
+				} else {
+					farm.addAnimal(animal);
+					System.out.println(String.format("You have purchased one %s.", animal.getName()));
+					farm.subtractMoney(animal.getPrice());
+					
+				}
 				
 				break;
 				
