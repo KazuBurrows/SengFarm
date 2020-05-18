@@ -135,8 +135,8 @@ public class Animal {
 		addHealth(health_amount);
 		addHappiness(happiness_amount);
 		
-		String msg = "%s's health is now %s and happiness is now %s.";
-		System.out.println(String.format(msg, name, health, happiness));
+		//String msg = "%s's health is now %s and happiness is now %s.";
+		//System.out.println(String.format(msg, name, health, happiness));
 		
 	}
 	

@@ -18,7 +18,7 @@ public class Game {
 	private int currentDay = 0;							// 
 	
 	private int totalActions = 2;						// Total actions player has available
-	
+	private int totalExtraActions = 0;
 	
 	Farmer farmer;
 	Farm farm;
@@ -160,6 +160,33 @@ public class Game {
 	
 	
 	
+	
+	
+	private int getTotalExtraActions()
+	{
+		return totalExtraActions;
+	}
+	
+	
+	
+	
+	private void addExtraAction()
+	{
+		totalExtraActions++;
+		
+	}
+	
+	
+	
+	private void subtractExtraAction()
+	{
+		totalExtraActions--;
+		
+	}
+	
+	
+	
+	
 	/*
 	 * Print game status.
 	 */
@@ -169,7 +196,7 @@ public class Game {
 		String remainingActions = "Remaining actions available: %s.";
 		
 		System.out.println(String.format(remainingDays, getCurrentDay(), getGameDuration()));
-		System.out.println(String.format(remainingActions, getTotalActions()));
+		System.out.println(String.format(remainingActions, getTotalActions() + getTotalExtraActions()));
 		
 	}
 	
@@ -255,18 +282,26 @@ public class Game {
 				
 				switch (navOption) {
 				case 0:							// water
-					if (getTotalActions() <= 0) {
+					if (getTotalActions() + getTotalExtraActions() <= 0) {
 						System.out.println("You do not have any more actions available. "
 								+ "Proceed to the next day for more actions or purchase an action from the store. ");
 						
 					} else {
 						crop.reduceHarvestDay(1);
-						subtractAction();
+						
+						if (getTotalActions() > 0) {
+							subtractAction();
+							
+						} else {
+							subtractExtraAction();
+							
+						}
+						
 						
 						msg = "%s was watered and is ready for harvest in %s days.";
 						System.out.println(String.format(msg, crop.getName(), Math.max(0, crop.getHarvestDay() - currentDay)));
 						msg = "You have %s remaining actions left.";
-						System.out.println(String.format(msg, totalActions));
+						System.out.println(String.format(msg, totalActions + totalExtraActions));
 					}
 					
 					break;
@@ -274,7 +309,7 @@ public class Game {
 				case 1:							// item
 					System.out.println("In navigation option item(case 1)");
 					
-					if (getTotalActions() <= 0) {
+					if (getTotalActions() + getTotalExtraActions() <= 0) {
 						System.out.println("You do not have any more actions available. "
 								+ "Proceed to the next day for more actions or purchase an action from the store. ");
 						
@@ -299,10 +334,20 @@ public class Game {
 						item.useItem(crop);							// Apply item on crop
 						farm.removeItem(item);
 						
+						
+						if (getTotalActions() > 0) {
+							subtractAction();
+							
+						} else {
+							subtractExtraAction();
+							
+						}
+						
+						
 						msg = "%s has been used on %s and is ready for harvest in %s days.";
 						System.out.println(String.format(msg, item.getName(), crop.getName(), Math.max(0, crop.getHarvestDay() - currentDay)));
 						msg = "You have %s remaining actions left.";
-						System.out.println(String.format(message, totalActions));
+						System.out.println(String.format(message, totalActions + totalExtraActions));
 						
 					}
 					
@@ -541,7 +586,14 @@ public class Game {
 					System.out.println("Could not purchase item because not enough money to purchase item or item is not in stock.");
 					
 				} else {
-					farm.addItem(item);
+					if (Item.itemInstanceOf(item) == 4) {
+						addExtraAction();
+						
+					} else {
+						farm.addItem(item);
+						
+					}
+					
 					System.out.println(String.format("You have purchased one %s.", item.getName()));
 					farm.subtractMoney(item.getPrice());
 					
