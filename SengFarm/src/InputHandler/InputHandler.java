@@ -129,7 +129,7 @@ public class InputHandler {
 			break;
 			
 		case "farm status":
-			if (validNavigationOption(userInput, 3)) {
+			if (validNavigationOption(userInput, 4)) {
 				return true;
 			}
 			
@@ -137,14 +137,14 @@ public class InputHandler {
 			
 			
 		case "select tend crop":
-			if (validNavigationOption(userInput, 2)) {
+			if (validNavigationOption(userInput, 3)) {
 				return true;
 			}
 			
 			break;
 			
 		case "select tend animal":
-			if (validNavigationOption(userInput, 3)) {
+			if (validNavigationOption(userInput, 4)) {
 				return true;
 			}
 			
@@ -152,28 +152,28 @@ public class InputHandler {
 			
 			
 		case "browse store":
-			if (validNavigationOption(userInput, 2)) {
-				return true;
-			}
-			
-			break;
-			
-		case "browse items":
-			if (validNavigationOption(userInput, 5)) {
-				return true;
-			}
-			
-			break;
-			
-		case "browse crops":
 			if (validNavigationOption(userInput, 3)) {
 				return true;
 			}
 			
 			break;
 			
+		case "browse items":
+			if (validNavigationOption(userInput, 6)) {
+				return true;
+			}
+			
+			break;
+			
+		case "browse crops":
+			if (validNavigationOption(userInput, 4)) {
+				return true;
+			}
+			
+			break;
+			
 		case "browse animals":
-			if (validNavigationOption(userInput, 2)) {
+			if (validNavigationOption(userInput, 3)) {
 				return true;
 			}
 			
@@ -333,6 +333,8 @@ public class InputHandler {
 	 */
 	private static boolean validNavigationOption(String userInput, int numOptions)
 	{
+//		System.out.println("validNavigationOption " + userInput + " numOptions " + numOptions);
+		
 		try {															// Try to convert input to integer and check input range
 			int option = Integer.parseInt(userInput);
 			
@@ -366,6 +368,7 @@ public class InputHandler {
 		
 		ArrayList<String> userOptions = new ArrayList<String>();
 		String option;
+		String cancel_option = "%s: Return to main menu.";
 		
 		switch (mode) {
 		case "main menu":
@@ -389,6 +392,7 @@ public class InputHandler {
 		case "main status":
 			String gameStatus = "%s: Check game status.";
 			String farmStatus = "%s: Check farm status.";
+			
 			
 			userOptions.add(gameStatus);
 			userOptions.add(farmStatus);
@@ -451,14 +455,17 @@ public class InputHandler {
 			
 		}
 		
+		if (mode != "main menu") {
+			userOptions.add(cancel_option);		// Cancel option
+		}
+		
+		
 		// Print navigation options
 		for (int i = 0; i < userOptions.size(); i++) {
 			option = userOptions.get(i);
 			
 			System.out.println(String.format(option, i));
 		}
-		
-		
 		
 		
 	}

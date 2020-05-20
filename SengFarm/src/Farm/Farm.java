@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Animal.Animal;
+import Animal.Cow;
 import Crop.Apple;
 import Crop.Corn;
 import Crop.Crop;
@@ -20,6 +21,7 @@ public class Farm extends FarmBonus {
 	private String name;
 	private Farmer farmer;
 	private int money;
+	private String farmType;
 	
 	private ArrayList<Crop> crops = new ArrayList<Crop>();						// Growing crops on farm
 	private ArrayList<Item> items = new ArrayList<Item>();						// All items owned
@@ -33,12 +35,12 @@ public class Farm extends FarmBonus {
 	 * @param farmerCharacter		Farmer object
 	 * @param initialMoney			Initial money for farm
 	 */
-	public Farm(Farmer farmerCharacter)
+	public Farm(Farmer farmerCharacter, String param_farmType)
 	{
 		setName();
 		farmer = farmerCharacter;
 		money = 1000;
-		
+		farmType = param_farmType;
 	}
 	
 	
@@ -70,6 +72,13 @@ public class Farm extends FarmBonus {
  		name = farmName;
 	}
 	
+	
+	
+	public String getFarmType()
+	{
+		
+		return farmType;
+	}
 	
 	
 	/*
@@ -171,8 +180,8 @@ public class Farm extends FarmBonus {
 		String aName;
 		int aHealth;
 		int aHappiness;
-		
-		for (int i = 0; i < animals.size(); i++) {
+		int i = 0;
+		for (i = 0; i < animals.size(); i++) {
 			animal = animals.get(i);
 			
 			aName = animal.getName();
@@ -184,7 +193,8 @@ public class Farm extends FarmBonus {
 			
 		}
 		
-		
+		String cancel = "%s: Return to main menu.";
+		System.out.println(String.format(cancel, i));
 		
 		
 	}
@@ -215,6 +225,15 @@ public class Farm extends FarmBonus {
 	
 	
 	
+	public ArrayList<Animal> getAllAnimal()
+	{
+		
+		return animals;
+	}
+	
+	
+	
+	
 	/*
 	 * Append a new animal to animals arrayList
 	 * 
@@ -222,6 +241,17 @@ public class Farm extends FarmBonus {
 	 */
 	public void addAnimal(Animal animal)
 	{
+		
+		if (farmType == "animal") {
+			animal.addHealth(50, farmType);
+			animal.addHappiness(50, farmType);
+		}
+		
+		if (farmType == "dairy" && animal instanceof Cow) {
+			animal.increaseDailyProfit();
+			
+		}
+		
 		animals.add(animal);
 		
 	}
@@ -238,6 +268,37 @@ public class Farm extends FarmBonus {
 		animals.remove(animal);
 		
 	}
+	
+	
+	
+	public void endOfDayProfit()
+	{
+		int total_profit = 0;
+		
+		Iterator<Animal> itr = animals.iterator();
+		Animal animal;
+		int profit;
+		int dailyProfit;
+		int health;
+		int happiness;
+		while (itr.hasNext()) {
+			animal = itr.next();
+			dailyProfit = animal.getDailyProfit();
+			health = animal.getHealth();
+			happiness = animal.getHappiness();
+			
+			profit = (int) (dailyProfit * ((health / 1000.0) + (happiness / 100.0)));
+			
+			total_profit += profit;
+			
+		}
+		
+		money += total_profit;
+		
+		String msg = "Today you have earned $%s. The farm now has $%s.";
+		System.out.println(String.format(msg, total_profit, money));
+	}
+	
 	
 	
 	
@@ -291,8 +352,8 @@ public class Farm extends FarmBonus {
 		Crop crop;
 		String cName;
 		int cHarvestReady;
-		
-		for (int i = 0; i < crops.size(); i++) {
+		int i = 0;
+		for (i = 0; i < crops.size(); i++) {
 			crop = crops.get(i);
 			
 			cName = crop.getName();
@@ -303,8 +364,8 @@ public class Farm extends FarmBonus {
 			
 		}
 		
-		
-		
+		String cancel = "%s: Return to main menu.";
+		System.out.println(String.format(cancel, i));
 		
 	}
 	
@@ -336,13 +397,30 @@ public class Farm extends FarmBonus {
 	
 	
 	
+	public ArrayList<Crop> getAllCrop()
+	{
+		
+		return crops;
+	}
+	
+	
+	
 	/*
 	 * Append a new crop to crops arrayList
 	 * 
 	 * @param crop		Crop object being appended
 	 */
-	public void addCrop(Crop crop)
+	public void addCrop(Crop crop, int currentDay)
 	{
+		if (farmType == "crop") {
+			int current_harvest_day = crop.getHarvestDay();
+//			System.out.println("current_harvest_day " + current_harvest_day);
+			int reduce_by = (int)((current_harvest_day - currentDay) / 2.8);
+			crop.reduceHarvestDay(reduce_by);
+//			System.out.println("reduce_by " + reduce_by);
+			
+		}
+		
 		crops.add(crop);
 		
 	}
@@ -588,25 +666,25 @@ public class Farm extends FarmBonus {
 	public static void main(String[] args)
 	{
 		
-		Farmer farmer = new Farmer();
-		Farm farm = new Farm(farmer);
-		
-		
-		Fertilizer f = new Fertilizer();
-		farm.addItem(f);
-		
-		Food food = new Food();
-		farm.addItem(food);
-		
-		SpecialFood fav_food = new SpecialFood();
-		farm.addItem(fav_food);
-		
-		ArrayList<Item> browse_item = farm.browseInventory("tend crop");
-		
-		for (int i=0; i<browse_item.size(); i++) {
-			System.out.println(browse_item.get(i).getName());
-			
-		}
+//		Farmer farmer = new Farmer();
+//		Farm farm = new Farm(farmer);
+//		
+//		
+//		Fertilizer f = new Fertilizer();
+//		farm.addItem(f);
+//		
+//		Food food = new Food();
+//		farm.addItem(food);
+//		
+//		SpecialFood fav_food = new SpecialFood();
+//		farm.addItem(fav_food);
+//		
+//		ArrayList<Item> browse_item = farm.browseInventory("tend crop");
+//		
+//		for (int i=0; i<browse_item.size(); i++) {
+//			System.out.println(browse_item.get(i).getName());
+//			
+//		}
 		
 		
 	}

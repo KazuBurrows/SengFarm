@@ -56,7 +56,7 @@ public class Crop {
 	
 	public void reduceHarvestDay(int days)
 	{
-		harvestDay = harvestDay - days;
+		harvestDay -= days;
 		
 	}
 	

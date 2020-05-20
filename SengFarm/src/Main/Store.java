@@ -66,8 +66,8 @@ public class Store {
 		String itemName;
 		int itemQuantity;
 		int itemPrice;
-		
-		for (int i=0; i < itemInventoryKeys.length; i++) {
+		int i = 0;
+		for (i=0; i < itemInventoryKeys.length; i++) {
 			itemName = itemInventoryKeys[i];
 			itemQuantity = itemInventory[i];
 			itemPrice = itemInventoryKeysCost[i];
@@ -75,6 +75,9 @@ public class Store {
 			System.out.println(String.format(message, i, itemName, itemPrice, itemQuantity));
 			
 		}
+		
+		String cancel = "%s: Return to main menu.";
+		System.out.println(String.format(cancel, i));
 	}
 	
 	
@@ -84,8 +87,8 @@ public class Store {
 		String cropName;
 		int cropQuantity;
 		int cropPrice;
-		
-		for (int i=0; i < cropInventoryKeys.length; i++) {
+		int i = 0;
+		for (i=0; i < cropInventoryKeys.length; i++) {
 			cropName = cropInventoryKeys[i];
 			cropQuantity = cropInventory[i];
 			cropPrice = cropInventoryKeysCost[i];
@@ -93,6 +96,9 @@ public class Store {
 			System.out.println(String.format(message, i, cropName, cropPrice, cropQuantity));
 			
 		}
+		
+		String cancel = "%s: Return to main menu.";
+		System.out.println(String.format(cancel, i));
 	}
 	
 	
@@ -103,8 +109,8 @@ public class Store {
 		String animal_name;
 		int animal_quantity;
 		int animal_price;
-		
-		for (int i=0; i < animalInventoryKeysCost.length; i++) {
+		int i = 0;
+		for (i=0; i < animalInventoryKeysCost.length; i++) {
 			animal_name = animalInventoryKeys[i];
 			animal_quantity = animalInventory[i];
 			animal_price = animalInventoryKeysCost[i];
@@ -112,6 +118,9 @@ public class Store {
 			System.out.println(String.format(message, i, animal_name, animal_price, animal_quantity));
 			
 		}
+		
+		String cancel = "%s: Return to main menu.";
+		System.out.println(String.format(cancel, i));
 	}
 	
 	

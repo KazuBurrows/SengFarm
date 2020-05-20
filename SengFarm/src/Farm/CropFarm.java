@@ -2,8 +2,8 @@ package Farm;
 
 public class CropFarm extends Farm {
 
-	public CropFarm(String farmName, Farmer farmer) {
-		super(farmName, farmer, 0);
+	public CropFarm(Farmer farmer) {
+		super(farmer, "crop");
 		
 	}
 	

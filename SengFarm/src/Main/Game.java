@@ -1,9 +1,11 @@
 package Main;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import Animal.Animal;
+import Animal.Cow;
 import Crop.Apple;
 import Crop.Crop;
 import Farm.Farm;
@@ -34,19 +36,32 @@ public class Game {
 		setGameDuration();
 		
 		farmer = new Farmer();
-		farm = new Farm(farmer);
+		farm = new Farm(farmer, "dairy");
 		store = new Store();
 //		event = new Event();
 		
 		
 		Apple a = new Apple(currentDay);
-		farm.addCrop(a);
+		farm.addCrop(a, currentDay);
 		
 		Fertilizer f = new Fertilizer();
 		farm.addItem(f);
 		
 		Fertilizer f2 = new Fertilizer();
 		farm.addItem(f2);
+		
+		
+		
+		Cow c1 = new Cow();
+		farm.addAnimal(c1);
+		Cow c2 = new Cow();
+		farm.addAnimal(c2);
+		Cow c3 = new Cow();
+		farm.addAnimal(c3);
+		Cow c4 = new Cow();
+		farm.addAnimal(c4);
+		
+		
 		
 		
 		runGame();
@@ -104,11 +119,44 @@ public class Game {
 		currentDay++;
 		resetActions();
 		
-		if (currentDay < gameDuration) {
+		if (currentDay <= gameDuration) {
+			farm.endOfDayProfit();
+			
 			System.out.println("Proceeding to the next day.");
 			printGameStatus();
-			event.checkForEvent(farm);
+			
+																			// DON'T NEED THIS
+			// Change crops harvest date
+//			ArrayList<Crop> crops = farm.getAllCrop();
+//			Iterator<Crop> c_itr = crops.iterator();
+//			Crop crop;
+//			while (c_itr.hasNext()) {
+//				crop = c_itr.next();
+//				
+//				crop.reduceHarvestDay(1);
+//				System.out.println("getHarvestDay " + crop.getHarvestDay() + " currentDay " + currentDay);
+//				
+//			}
+			
+			
+			
+			// Change animals happiness and health
+			ArrayList<Animal> animals = farm.getAllAnimal();
+			Iterator<Animal> a_itr = animals.iterator();
+			Animal animal;
+			while (a_itr.hasNext()) {
+				animal = a_itr.next();
+				
+				animal.reduceHealth(10);
+				animal.reduceHappiness(12);
+				
+			}
+			
+			//event.checkForEvent(farm);
 		}
+		
+		
+		
 	}
 	
 	
@@ -265,8 +313,20 @@ public class Game {
 					
 					break;
 				}
+				
+				// Selecting crop
+				
 				userInput = InputHandler.getSpecialUserInput(mode, message, numCrops);
 				navOption = Integer.parseInt(userInput);
+				
+				
+				// Check if user want's to select crop or return to main menu
+				if (navOption == numCrops) {
+					break;
+					
+				}
+				
+				
 				
 				Crop crop = farm.getCrop(navOption);
 				
@@ -359,9 +419,12 @@ public class Game {
 					
 					break;
 				
+				case 3:												// Cancel or return to main menu
+					
+					break;
+					
 				}
 				
-
 				break;
 				
 			case 3:													// Tend animals
@@ -382,6 +445,12 @@ public class Game {
 				
 				userInput = InputHandler.getSpecialUserInput(mode, message, numAnimals);
 				navOption = Integer.parseInt(userInput);
+				
+				
+				if (navOption == numAnimals) {						// Return to main menu
+					break;
+				}
+				
 				
 				Animal animal = farm.getAnimal(navOption);
 				
@@ -453,7 +522,7 @@ public class Game {
 					break;
 					
 				case 2:			// Play
-					animal.addHappiness(10);
+					animal.addHappiness(10, farm.getFarmType());
 					
 					break;
 					
@@ -482,6 +551,10 @@ public class Game {
 					
 					
 					
+					break;
+					
+					
+				case 4:
 					break;
 				
 				
@@ -532,6 +605,10 @@ public class Game {
 				
 				break;
 				
+			case 2:
+				
+				break;
+				
 			}
 			
 			
@@ -564,12 +641,17 @@ public class Game {
 				
 				break;
 			
+			case 4:
+				break;
+				
 			}
 			
 		}
 		
 		
 		if (actionType == "browse store") {
+			int cancel_option;
+			
 			switch(option) {
 			case 0:				// Browse items
 				mode = "browse items";
@@ -577,6 +659,11 @@ public class Game {
 				
 				userInput = InputHandler.getUserInput(mode, message);
 				navOption = Integer.parseInt(userInput);
+				
+				cancel_option = 6;
+				if (navOption == cancel_option) {						// Return main menu
+					break;
+				}
 				
 				
 				// Check if item can be bought
@@ -608,6 +695,10 @@ public class Game {
 				userInput = InputHandler.getUserInput(mode, message);
 				navOption = Integer.parseInt(userInput);
 				
+				cancel_option = 4;
+				if (navOption == cancel_option) {						// Return main menu
+					break;
+				}
 				
 				// Check if item can be bought
 				Crop crop = store.purchaseCrop(navOption, farm.getMoney(), getCurrentDay());
@@ -616,7 +707,7 @@ public class Game {
 					System.out.println("Could not purchase item because not enough money to purchase item or item is not in stock.");
 					
 				} else {
-					farm.addCrop(crop);
+					farm.addCrop(crop, currentDay);
 					System.out.println(String.format("You have purchased one %s.", crop.getName()));
 					farm.subtractMoney(crop.getPrice());
 					
@@ -631,6 +722,12 @@ public class Game {
 				
 				userInput = InputHandler.getUserInput(mode, message);
 				navOption = Integer.parseInt(userInput);
+				
+				cancel_option = 3;
+				if (navOption == cancel_option) {						// Return main menu
+					break;
+				}
+				
 				
 				Animal animal = store.purchaseAnimal(navOption, farm.getMoney());
 				
@@ -647,12 +744,13 @@ public class Game {
 				break;
 				
 				
+			case 3:
+				break;
+				
 			}
 			
 		}
 		
-		
-
 	}
 	
 	
@@ -666,7 +764,7 @@ public class Game {
 	private void runGame()
 	{
 		
-		while (currentDay < gameDuration)
+		while (currentDay <= gameDuration)
 		{
 //			System.out.println("Main loop iteration.");
 			mainMenu();

@@ -9,15 +9,16 @@ public class Animal {
 	private int price;
 	private int health;
 	private int happiness;
+	private int dailyProfit;
 	
 	
-	public Animal(String param_name, int param_price)
+	public Animal(String param_name, int param_price, int param_profit)
 	{
 		name = param_name;
 		price = param_price;
 		health = 100;
 		happiness = 100;
-		
+		dailyProfit = param_profit;
 	}
 	
 	
@@ -47,7 +48,7 @@ public class Animal {
 	
 	
 	
-	public void addHealth(int amount)
+	public void addHealth(int amount, String farmType)
 	{
 		if (amount < 0) {
 			System.out.println("addHealth amount param is " + amount);
@@ -56,10 +57,18 @@ public class Animal {
 			
 		}
 		
-		health = Math.min(100, health + amount);
+		if (farmType == "animal") {
+			health = Math.min(150, health + amount);
+			
+		} else {
+			health = Math.min(100, health + amount);
+			
+		}
 		
-		String msg = "%s's health is now %s.";
-		System.out.println(String.format(msg, name, health));
+		
+		
+//		String msg = "%s's health is now %s.";
+//		System.out.println(String.format(msg, name, health));
 		
 	}
 	
@@ -76,8 +85,8 @@ public class Animal {
 		
 		health = Math.max(0, health - amount);
 		
-		String msg = "%s's health is now %s.";
-		System.out.println(String.format(msg, name, health));
+//		String msg = "%s's health is now %s.";
+//		System.out.println(String.format(msg, name, health));
 		
 	}
 	
@@ -92,7 +101,7 @@ public class Animal {
 	
 	
 	
-	public void addHappiness(int amount)
+	public void addHappiness(int amount, String farmType)
 	{
 		if (amount < 0) {
 			System.out.println("addHappiness amount param is " + amount);
@@ -101,10 +110,17 @@ public class Animal {
 			
 		}
 		
-		happiness = Math.min(100, happiness + amount);
 		
-		String msg = "%s's happiness is now %s.";
-		System.out.println(String.format(msg, name, happiness));
+		if (farmType == "animal") {
+			happiness = Math.min(150, happiness + amount);
+			
+		} else {
+			happiness = Math.min(100, happiness + amount);
+			
+		}
+		
+//		String msg = "%s's happiness is now %s.";
+//		System.out.println(String.format(msg, name, happiness));
 		
 	}
 	
@@ -121,8 +137,8 @@ public class Animal {
 		
 		happiness = Math.max(0, happiness - amount);
 		
-		String msg = "%s's happiness is now %s.";
-		System.out.println(String.format(msg, name, happiness));
+//		String msg = "%s's happiness is now %s.";
+//		System.out.println(String.format(msg, name, happiness));
 		
 		
 	}
@@ -130,10 +146,10 @@ public class Animal {
 	
 	
 	
-	public void playAnimal(int health_amount, int happiness_amount)
+	public void playAnimal(int health_amount, int happiness_amount, String farmType)
 	{
-		addHealth(health_amount);
-		addHappiness(happiness_amount);
+		addHealth(health_amount, farmType);
+		addHappiness(happiness_amount, farmType);
 		
 		//String msg = "%s's health is now %s and happiness is now %s.";
 		//System.out.println(String.format(msg, name, health, happiness));
@@ -142,10 +158,10 @@ public class Animal {
 	
 	
 	
-	public void feedAnimal(int health_amount, int happiness_amount)
+	public void feedAnimal(int health_amount, int happiness_amount, String farmType)
 	{
-		addHealth(health_amount);
-		addHappiness(happiness_amount);
+		addHealth(health_amount, farmType);
+		addHappiness(happiness_amount, farmType);
 		
 		String msg = "%s has %s health and %s happiness.";
 		System.out.println(String.format(msg, name, health, happiness));
@@ -154,6 +170,16 @@ public class Animal {
 	
 	
 	
+	public int getDailyProfit()
+	{
+		return dailyProfit;
+	}
+	
+	
+	public void increaseDailyProfit()
+	{
+		dailyProfit += 10;
+	}
 	
 	
 }
