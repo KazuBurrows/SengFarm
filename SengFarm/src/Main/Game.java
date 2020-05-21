@@ -36,7 +36,7 @@ public class Game {
 		setGameDuration();
 		
 		farmer = new Farmer();
-		farm = new Farm(farmer, "dairy");
+		farm = instatiateFarm();
 		store = new Store();
 //		event = new Event();
 		
@@ -66,6 +66,40 @@ public class Game {
 		
 		runGame();
 	}
+	
+	
+	
+	private Farm instatiateFarm()
+	{
+		String mode = "instatiate farm";
+		String userInput;
+		int navOption;
+		String message = "Enter a number to select a farm type.";
+		
+		InputHandler.printNavigationOption(mode);
+		
+		userInput = InputHandler.getUserInput(mode, message);
+		navOption = Integer.parseInt(userInput);
+		
+		
+		Farm local_farm;
+		
+		if (navOption == 0) {
+			local_farm = new Farm(farmer, "dairy");
+			
+		} else if (navOption == 1) {
+			local_farm = new Farm(farmer, "crop");
+			
+		} else {
+			local_farm = new Farm(farmer, "animal");
+			
+		}
+		
+		
+		return local_farm;
+		
+	}
+	
 	
 	
 	

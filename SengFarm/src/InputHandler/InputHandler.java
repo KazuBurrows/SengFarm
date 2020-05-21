@@ -178,6 +178,13 @@ public class InputHandler {
 			}
 			
 			break;
+			
+		case "instatiate farm":
+			if (validNavigationOption(userInput, 2)) {
+				return true;
+			}
+			
+			break;
 		}
 		
 		System.out.println("Please select a valid number.");
@@ -453,9 +460,23 @@ public class InputHandler {
 			
 			break;
 			
+			
+		case "instatiate farm":
+			String dairy = "%s: Dairy farm.";
+			String crop = "%s: Crop farm";
+			String animal = "%s: Animal farm";
+			
+			userOptions.add(dairy);
+			userOptions.add(crop);
+			userOptions.add(animal);
+			
+			break;
+			
 		}
 		
-		if (mode != "main menu") {
+		
+		
+		if (mode != "main menu" && mode != "instatiate farm") {
 			userOptions.add(cancel_option);		// Cancel option
 		}
 		
