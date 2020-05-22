@@ -172,8 +172,9 @@ public class Game {
 //				
 //			}
 			
-			
-			
+			int animal_health;
+			int animal_happiness;
+			String msg = "%s's has died.";
 			// Change animals happiness and health
 			ArrayList<Animal> animals = farm.getAllAnimal();
 			Iterator<Animal> a_itr = animals.iterator();
@@ -184,7 +185,18 @@ public class Game {
 				animal.reduceHealth(10);
 				animal.reduceHappiness(12);
 				
+				animal_health = animal.getHealth();
+				animal_happiness = animal.getHappiness();
+				if (animal_health == 0 || animal_happiness == 0) {
+					farm.removeAnimal(animal);
+					System.out.println(String.format(msg, animal.getHealth()));
+					
+				}
 			}
+			
+			
+			
+			
 			
 			//event.checkForEvent(farm);
 		}
