@@ -136,7 +136,7 @@ public class Animal {
 		}
 		
 		happiness = Math.max(0, happiness - amount);
-		
+//		System.out.println(name + " " + happiness);
 //		String msg = "%s's happiness is now %s.";
 //		System.out.println(String.format(msg, name, happiness));
 		

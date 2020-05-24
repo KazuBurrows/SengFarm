@@ -7,7 +7,10 @@ import java.util.Scanner;
 import Animal.Animal;
 import Animal.Cow;
 import Crop.Apple;
+import Crop.Corn;
 import Crop.Crop;
+import Crop.Sunflower;
+import Crop.Wheat;
 import Farm.Farm;
 import Farm.Farmer;
 import InputHandler.InputHandler;
@@ -30,6 +33,10 @@ public class Game {
 	
 	/*
 	 * Constructor
+	 * Initializes the farmer class
+	 * Initializes the farm class
+	 * Initializes the store class
+	 * Initializes the event class
 	 */
 	public Game()
 	{
@@ -38,11 +45,25 @@ public class Game {
 		farmer = new Farmer();
 		farm = instatiateFarm();
 		store = new Store();
-//		event = new Event();
+		event = new Event(farm);
 		
 		
-		Apple a = new Apple(currentDay);
-		farm.addCrop(a, currentDay);
+		Apple a1 = new Apple(currentDay);
+		farm.addCrop(a1, currentDay);
+		
+		Apple a2 = new Apple(currentDay);
+		farm.addCrop(a2, currentDay);
+		
+		Corn corn1 = new Corn(currentDay);
+		farm.addCrop(corn1, currentDay);
+		
+		Sunflower s1 = new Sunflower(currentDay);
+		farm.addCrop(s1, currentDay);
+		
+		Wheat w1 = new Wheat(currentDay);
+		farm.addCrop(w1, currentDay);
+		
+		
 		
 		Fertilizer f = new Fertilizer();
 		farm.addItem(f);
@@ -104,7 +125,7 @@ public class Game {
 	
 	
 	/*
-	 * Get gameDuration
+	 * Get total duration of the game
 	 * 
 	 * @return			The total duration of game
 	 */
@@ -133,7 +154,7 @@ public class Game {
 	
 	
 	/*
-	 * 
+	 * Get the current day
 	 * 
 	 * @return			Current day in game
 	 */
@@ -147,6 +168,8 @@ public class Game {
 	
 	/*
 	 * Proceed to the next day
+	 * Reduces the health and happiness of all animals on the farm
+	 * Check if a random event has happened
 	 */
 	private void nextDay()
 	{
@@ -159,29 +182,18 @@ public class Game {
 			System.out.println("Proceeding to the next day.");
 			printGameStatus();
 			
-																			// DON'T NEED THIS
-			// Change crops harvest date
-//			ArrayList<Crop> crops = farm.getAllCrop();
-//			Iterator<Crop> c_itr = crops.iterator();
-//			Crop crop;
-//			while (c_itr.hasNext()) {
-//				crop = c_itr.next();
-//				
-//				crop.reduceHarvestDay(1);
-//				System.out.println("getHarvestDay " + crop.getHarvestDay() + " currentDay " + currentDay);
-//				
-//			}
 			
 			int animal_health;
 			int animal_happiness;
-			String msg = "%s's has died.";
+			String msg = "%s has died.";
 			// Change animals happiness and health
 			ArrayList<Animal> animals = farm.getAllAnimal();
 			Iterator<Animal> a_itr = animals.iterator();
 			Animal animal;
 			while (a_itr.hasNext()) {
 				animal = a_itr.next();
-				
+//				System.out.println("test" + animal);
+
 				animal.reduceHealth(10);
 				animal.reduceHappiness(12);
 				
@@ -189,18 +201,16 @@ public class Game {
 				animal_happiness = animal.getHappiness();
 				if (animal_health == 0 || animal_happiness == 0) {
 					farm.removeAnimal(animal);
-					System.out.println(String.format(msg, animal.getHealth()));
+//					System.out.println(String.format(msg, animal.getName()));
 					
 				}
+				
+				
 			}
 			
+ 			event.checkForEvent();
 			
-			
-			
-			
-			//event.checkForEvent(farm);
 		}
-		
 		
 		
 	}
@@ -208,7 +218,7 @@ public class Game {
 	
 	
 	/*
-	 * 
+	 * Get total remaining actions the player has
 	 * 
 	 * @return			Total actions player has available
 	 */
@@ -255,11 +265,16 @@ public class Game {
 	
 	
 	
-	
+	/*
+	 * Get total extra actions
+	 * 
+	 * @return			return total extra actions
+	 */
 	private int getTotalExtraActions()
 	{
 		return totalExtraActions;
 	}
+	
 	
 	
 	
@@ -822,9 +837,18 @@ public class Game {
 		System.out.println("End of game.");
 		
 		// Print game status/ experience
+		String msg1 = "Farmer %s's %s farm game experience.";
+		String msg2 = "Total money earned %s and spent $%s.";
+		String msg3 = "Sustained %s out of %s animals.";
+		String msg4 = "%s crops harvested.";
 		
+		int totalSpent = Math.abs(farm.getTotalMoneyEarned() - farm.getMoney());
 		
-		
+		System.out.println(String.format(msg1, farmer.getName(), farm.getName()));
+		System.out.println(String.format(msg2, farm.getTotalMoneyEarned(), totalSpent));
+		System.out.println(String.format(msg3, farm.getTotalAnimalsOwned(), farm.getNumAnimals()));
+		System.out.println(String.format(msg4, farm.getTotalCropsHarvested()));
+
 		
 	}
 	

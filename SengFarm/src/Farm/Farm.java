@@ -28,6 +28,11 @@ public class Farm extends FarmBonus {
 	private ArrayList<Animal> animals = new ArrayList<Animal>();				// Animals on farm
 
 	
+	private int totalMoneyEarned = 0;
+	private int totalAnimalsOwned = 0;
+	private int totalCropsHarvested = 0;
+	
+	
 	
 	/*
 	 * Constructor
@@ -114,7 +119,7 @@ public class Farm extends FarmBonus {
 	public void addMoney(int amount)
 	{
 		money += amount;
-		
+		totalMoneyEarned += amount;
 	}
 	
 	
@@ -253,7 +258,7 @@ public class Farm extends FarmBonus {
 		}
 		
 		animals.add(animal);
-		
+		totalAnimalsOwned++;
 	}
 	
 	
@@ -293,7 +298,7 @@ public class Farm extends FarmBonus {
 			
 		}
 		
-		money += total_profit;
+		addMoney(total_profit);
 		
 		String msg = "Today you have earned $%s. The farm now has $%s.";
 		System.out.println(String.format(msg, total_profit, money));
@@ -422,7 +427,6 @@ public class Farm extends FarmBonus {
 		}
 		
 		crops.add(crop);
-		
 	}
 	
 	
@@ -457,7 +461,8 @@ public class Farm extends FarmBonus {
 		
 		msg = "%s has been harvested and $%s has been added to the farm's money.";
 		System.out.println(String.format(msg, crop.getName(), amount));
-		
+		totalCropsHarvested++;
+
 	}
 	
 	
@@ -629,6 +634,25 @@ public class Farm extends FarmBonus {
 	}
 
 
+	public int getTotalMoneyEarned()
+	{
+		return totalMoneyEarned;
+	}
+	
+	
+	public int getTotalAnimalsOwned()
+	{
+		return totalAnimalsOwned;
+	}
+	
+	
+	public int getTotalCropsHarvested()
+	{
+		return totalCropsHarvested;
+	}
+	
+	
+	
 	@Override
 	public void applyBonus() {
 		// TODO Auto-generated method stub
@@ -639,26 +663,26 @@ public class Farm extends FarmBonus {
 	
 	
 	
-	/*
-	 * Reads user input.
-	 * 
-	 * @param scannerMsg		A message to ask the user.
-	 * @return 					User's input.
-	 */
-	private static String userInputHelper(String scannerMsg)
-	{
-		
-		String userInput; 
- 		System.out.println(scannerMsg);
-		
-		Scanner sc = new Scanner(System.in);
- 		userInput = sc.nextLine();
-		
-// 		sc.close();
- 		
- 		return userInput;
-		
-	}
+//	/*
+//	 * Reads user input.
+//	 * 
+//	 * @param scannerMsg		A message to ask the user.
+//	 * @return 					User's input.
+//	 */
+//	private static String userInputHelper(String scannerMsg)
+//	{
+//		
+//		String userInput; 
+// 		System.out.println(scannerMsg);
+//		
+//		Scanner sc = new Scanner(System.in);
+// 		userInput = sc.nextLine();
+//		
+//// 		sc.close();
+// 		
+// 		return userInput;
+//		
+//	}
 	
 	
 
