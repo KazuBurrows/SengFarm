@@ -14,9 +14,9 @@ public class AnimalToy extends Item {
 	}
 	
 	@Override
-	public void useItem(Object animal) {
+	public void useItem(Object animal, String farmType) {
 		// Do something
-		((Animal) animal).playAnimal(increaseHealthAmount, increaseHappinessAmount);
+		((Animal) animal).playAnimal(increaseHealthAmount, increaseHappinessAmount, farmType);
 	}
 
 }

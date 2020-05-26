@@ -10,7 +10,7 @@ public class StoreCoupon extends Item {
 	}
 	
 	@Override
-	public void useItem(Object object) {
+	public void useItem(Object object, String farmtype) {
 		// Do something
 		
 	}

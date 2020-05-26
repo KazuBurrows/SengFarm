@@ -452,7 +452,7 @@ public class Game {
 						navOption = Integer.parseInt(userInput);
 						
 						item = inventory.get(navOption);
-						item.useItem(crop);							// Apply item on crop
+						item.useItem(crop, farm.getFarmType());							// Apply item on crop
 						farm.removeItem(item);
 						
 						
@@ -539,7 +539,7 @@ public class Game {
 							System.out.println("Don't really need this check.");
 							
 						} else {
-							item.useItem(animal);
+							item.useItem(animal, farm.getFarmType());
 						}
 						
 						
@@ -568,7 +568,7 @@ public class Game {
 							System.out.println("Don't really need this check.");
 							
 						} else {
-							item.useItem(animal);
+							item.useItem(animal, farm.getFarmType());
 						}
 						
 						
@@ -600,7 +600,7 @@ public class Game {
 							System.out.println("Don't really need this check.");
 							
 						} else {
-							item.useItem(animal);
+							item.useItem(animal, farm.getFarmType());
 						}
 						
 						

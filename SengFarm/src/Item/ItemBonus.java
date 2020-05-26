@@ -36,7 +36,7 @@ public abstract class ItemBonus {
 	/*
 	 * Apply a special attribute when item is used
 	 */
-	public abstract void useItem(Object object);
+	public abstract void useItem(Object object, String farmType);
 	
 	
 }

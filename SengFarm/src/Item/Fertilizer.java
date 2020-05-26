@@ -17,7 +17,7 @@ public class Fertilizer extends Item {
 	
 	
 	@Override
-	public void useItem(Object crop) {
+	public void useItem(Object crop, String farmType) {
 		((Crop) crop).reduceHarvestDay(2);
 		
 	}
